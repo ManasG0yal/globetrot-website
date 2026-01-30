@@ -101,9 +101,9 @@ const CountryPage = () => {
 
   // Default data for countries not fully configured
   const defaultCountryData = {
-    name: countryCode?.charAt(0).toUpperCase() + countryCode?.slice(1) || 'Country',
+    name: countryCode ? (countryCode.charAt(0).toUpperCase() + countryCode.slice(1)) : 'Country',
     flag: '🌍',
-    title: `${countryCode?.charAt(0).toUpperCase() + countryCode?.slice(1)} Golden Visa Program`,
+    title: `${countryCode ? (countryCode.charAt(0).toUpperCase() + countryCode.slice(1)) : 'Country'} Golden Visa Program`,
     hero: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=600&fit=crop',
     overview: 'Premium investment-based residency program offering pathway to citizenship through strategic investments.',
     minInvestment: 'Contact for details',

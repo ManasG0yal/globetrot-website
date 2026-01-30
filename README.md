@@ -44,9 +44,9 @@ Message:
 ### 4. Set Environment Variables
 Create a `.env` file in the project root:
 ```
-REACT_APP_EMAILJS_SERVICE_ID=your_service_id
-REACT_APP_EMAILJS_TEMPLATE_ID=your_template_id  
-REACT_APP_EMAILJS_PUBLIC_KEY=your_public_key
+VITE_EMAILJS_SERVICE_ID=your_service_id
+VITE_EMAILJS_TEMPLATE_ID=your_template_id  
+VITE_EMAILJS_PUBLIC_KEY=your_public_key
 ```
 
 ## 🛠 Development

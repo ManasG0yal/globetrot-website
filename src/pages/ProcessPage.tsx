@@ -266,7 +266,7 @@ const ProcessPage = () => {
 
               {/* Timeline Points */}
               <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">
-                {steps.map((step, index) => (
+                {steps.map((step) => (
                   <div key={step.step} className="text-center relative">
                     <div className="w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold relative z-10">
                       {step.step}

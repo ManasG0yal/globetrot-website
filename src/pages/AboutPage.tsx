@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Users, Award, Globe, TrendingUp, CheckCircle, ArrowRight } from 'lucide-react';
+import { Users, Award, Globe, CheckCircle, ArrowRight } from 'lucide-react';
 
 const AboutPage = () => {
   const values = [

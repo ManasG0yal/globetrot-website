@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Users, Globe, Award, TrendingUp } from 'lucide-react';
+import { ArrowRight, Users, Globe, Award, TrendingUp } from 'lucide-react';
 import Testimonials from '../components/Testimonials';
 
 const HomePage = () => {
