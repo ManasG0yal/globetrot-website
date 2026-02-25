@@ -7,57 +7,49 @@ const HomePage = () => {
     { 
       code: 'portugal', 
       name: 'Portugal', 
-      flag: '🇵🇹', 
-      minInvestment: '€280,000',
+      image: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&h=600&fit=crop',
       feature: 'EU Access'
     },
     { 
       code: 'spain', 
       name: 'Spain', 
-      flag: '🇪🇸', 
-      minInvestment: '€500,000',
+      image: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=800&h=600&fit=crop',
       feature: 'Schengen Zone'
     },
     { 
       code: 'greece', 
       name: 'Greece', 
-      flag: '🇬🇷', 
-      minInvestment: '€250,000',
+      image: 'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800&h=600&fit=crop',
       feature: 'EU Residency'
     },
     { 
       code: 'cyprus', 
       name: 'Cyprus', 
-      flag: '🇨🇾', 
-      minInvestment: '€300,000',
+      image: 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=800&h=600&fit=crop',
       feature: 'EU Passport'
     },
     { 
       code: 'malta', 
       name: 'Malta', 
-      flag: '🇲🇹', 
-      minInvestment: '€150,000',
+      image: 'https://images.unsplash.com/photo-1565530817193-8680d86d7d3a?w=800&h=600&fit=crop',
       feature: 'EU Member'
     },
     { 
       code: 'uk', 
-      name: 'UK', 
-      flag: '🇬🇧', 
-      minInvestment: '£2,000,000',
+      name: 'United Kingdom', 
+      image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&h=600&fit=crop',
       feature: 'Tier 1 Visa'
     },
     { 
       code: 'newzealand', 
       name: 'New Zealand', 
-      flag: '🇳🇿', 
-      minInvestment: 'NZ$3,000,000',
+      image: 'https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=800&h=600&fit=crop',
       feature: 'Residency'
     },
     { 
       code: 'australia', 
       name: 'Australia', 
-      flag: '🇦🇺', 
-      minInvestment: 'AU$5,000,000',
+      image: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=800&h=600&fit=crop',
       feature: 'Permanent Visa'
     },
   ];
@@ -150,7 +142,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Featured Countries - Improved cards and contrast */}
+      {/* Featured Countries - With Images */}
       <section className="section-spacing bg-neutral-50">
         <div className="container-max section-padding">
           <div className="text-center mb-16">
@@ -158,7 +150,7 @@ const HomePage = () => {
               Popular Immigration Destinations
             </h2>
             <p className="text-xl text-neutral-600 max-w-2xl mx-auto leading-relaxed">
-              We serve countries worldwide. Here are our most popular Golden Visa and investment programs.
+              We help you secure visas and residency in countries worldwide. Here are our most popular destinations.
             </p>
           </div>
 
@@ -167,21 +159,33 @@ const HomePage = () => {
               <Link
                 key={country.code}
                 to={`/country/${country.code}`}
-                className="card-interactive p-6 group"
+                className="card-interactive overflow-hidden group"
               >
-                <div className="text-center">
-                  <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-200">
-                    {country.flag}
+                {/* Country Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src={country.image} 
+                    alt={country.name}
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                  
+                  {/* Badge on Image */}
+                  <div className="absolute top-3 right-3">
+                    <div className="badge bg-white/90 backdrop-blur-sm text-neutral-900 font-semibold shadow-lg">
+                      {country.feature}
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold text-neutral-900 mb-3 group-hover:text-primary-700 transition-colors">
+                </div>
+
+                {/* Country Info */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-neutral-900 mb-2 group-hover:text-primary-700 transition-colors">
                     {country.name}
                   </h3>
-                  <div className="text-lg font-bold text-accent-700 mb-3">
-                    From {country.minInvestment}
-                  </div>
-                  <div className="badge badge-primary">
-                    {country.feature}
-                  </div>
+                  <p className="text-neutral-600 text-sm">
+                    Explore visa options and residency programs
+                  </p>
                 </div>
               </Link>
             ))}
