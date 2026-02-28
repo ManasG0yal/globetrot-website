@@ -1,405 +1,258 @@
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Clock, Users, Globe } from 'lucide-react';
+import { ArrowUpRight, Plane, Briefcase, Users, Heart, Building, GraduationCap } from 'lucide-react';
 
 const ServicesPage = () => {
   const countries = [
-    {
-      code: 'portugal',
-      name: 'Portugal',
-      flag: '🇵🇹',
-      title: 'Portugal Golden Visa',
-      minInvestment: '€280,000',
-      timeframe: '2-3 months',
-      citizenship: '5 years',
-      benefits: ['EU Residency', 'Schengen Access', 'Low Requirements', 'Tax Benefits'],
-      popular: true,
-      description: 'Portugal\'s Golden Visa program offers residency to investors making qualifying investments, with a path to citizenship after 5 years.'
-    },
-    {
-      code: 'spain',
-      name: 'Spain',
-      flag: '🇪🇸',
-      title: 'Spain Golden Visa',
-      minInvestment: '€500,000',
-      timeframe: '2-4 months',
-      citizenship: '10 years',
-      benefits: ['EU Residency', 'Schengen Zone', 'Quality Healthcare', 'Education'],
-      popular: true,
-      description: 'Spain\'s Golden Visa program grants residency to investors who make significant investments in real estate or capital.'
-    },
-    {
-      code: 'greece',
-      name: 'Greece',
-      flag: '🇬🇷',
-      title: 'Greece Golden Visa',
-      minInvestment: '€250,000',
-      timeframe: '2-3 months',
-      citizenship: '7 years',
-      benefits: ['EU Access', 'Affordable Investment', 'Beautiful Lifestyle', 'Strategic Location'],
-      popular: false,
-      description: 'Greece\'s Golden Visa program provides residency to investors through real estate investments with great affordability.'
-    },
-    {
-      code: 'cyprus',
-      name: 'Cyprus',
-      flag: '🇨🇾',
-      title: 'Cyprus Investment Program',
-      minInvestment: '€300,000',
-      timeframe: '3-6 months',
-      citizenship: '8 years',
-      benefits: ['EU Passport', 'Business Hub', 'Tax Advantages', 'English Speaking'],
-      popular: false,
-      description: 'Cyprus offers permanent residency to investors making a qualifying real estate investment with EU citizenship pathway.'
-    },
-    {
-      code: 'malta',
-      name: 'Malta',
-      flag: '🇲🇹',
-      title: 'Malta Permanent Residency',
-      minInvestment: '€150,000',
-      timeframe: '4-6 months',
-      citizenship: '5 years',
-      benefits: ['EU Member', 'English Speaking', 'Strategic Location', 'Business Friendly'],
-      popular: true,
-      description: 'Malta\'s Permanent Residency Program offers residency to individuals who meet specific investment criteria.'
-    },
-    {
-      code: 'uk',
-      name: 'United Kingdom',
-      flag: '🇬🇧',
-      title: 'UK Investor Visa',
-      minInvestment: '£2,000,000',
-      timeframe: '3-6 months',
-      citizenship: '6 years',
-      benefits: ['Tier 1 Visa', 'World-Class Education', 'Financial Hub', 'Global Gateway'],
-      popular: false,
-      description: 'The UK\'s Investor Visa allows high-net-worth individuals to obtain residency through substantial investment.'
-    },
-    {
-      code: 'newzealand',
-      name: 'New Zealand',
-      flag: '🇳🇿',
-      title: 'New Zealand Investor Visa',
-      minInvestment: 'NZ$3,000,000',
-      timeframe: '6-12 months',
-      citizenship: '5 years',
-      benefits: ['Quality of Life', 'Clean Environment', 'Stable Economy', 'Education'],
-      popular: false,
-      description: 'New Zealand offers Investor visas for individuals interested in investing and contributing to the economy.'
-    },
-    {
-      code: 'australia',
-      name: 'Australia',
-      flag: '🇦🇺',
-      title: 'Australia Significant Investor Visa',
-      minInvestment: 'AU$5,000,000',
-      timeframe: '6-12 months',
-      citizenship: '4 years',
-      benefits: ['Premium Lifestyle', 'Strong Economy', 'Excellent Healthcare', 'Education'],
-      popular: false,
-      description: 'Australia\'s Significant Investor Visa grants residency to individuals making substantial investments.'
-    },
-    {
-      code: 'canada',
-      name: 'Canada',
-      flag: '🇨🇦',
-      title: 'Quebec Investor Program',
-      minInvestment: 'CA$1,200,000',
-      timeframe: '12-24 months',
-      citizenship: '3 years',
-      benefits: ['Quality Healthcare', 'Excellent Education', 'Multicultural', 'Stable Economy'],
-      popular: false,
-      description: 'The Quebec Immigrant Investor Program allows investors to obtain Canadian permanent residency.'
-    },
-    {
-      code: 'singapore',
-      name: 'Singapore',
-      flag: '🇸🇬',
-      title: 'Singapore Global Investor Program',
-      minInvestment: 'S$10,000,000',
-      timeframe: '6-8 months',
-      citizenship: '2 years',
-      benefits: ['Business Hub', 'Tax Efficiency', 'Strategic Location', 'World-Class Infrastructure'],
-      popular: false,
-      description: 'Singapore\'s Global Investor Program offers residency to investors making substantial economic contributions.'
-    }
+    { name: "Portugal", flag: "🇵🇹", funFact: "300 days of sunshine per year", tag: "EU Access", image: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80", slug: "portugal" },
+    { name: "Spain", flag: "🇪🇸", funFact: "World's healthiest country", tag: "Schengen Zone", image: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=600&q=80", slug: "spain" },
+    { name: "Greece", flag: "🇬🇷", funFact: "6,000 islands to explore", tag: "EU Residency", image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600&q=80", slug: "greece" },
+    { name: "Cyprus", flag: "🇨🇾", funFact: "Fastest EU citizenship", tag: "EU Passport", image: "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=600&q=80", slug: "cyprus" },
+    { name: "Malta", flag: "🇲🇹", funFact: "English-speaking EU paradise", tag: "EU Member", image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", slug: "malta" },
+    { name: "United Kingdom", flag: "🇬🇧", funFact: "Global financial hub", tag: "Tier 1 Visa", image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&q=80", slug: "uk" },
+    { name: "New Zealand", flag: "🇳🇿", funFact: "Stunning landscapes", tag: "Residency", image: "https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=600&q=80", slug: "newzealand" },
+    { name: "Australia", flag: "🇦🇺", funFact: "Highest minimum wage", tag: "Permanent Visa", image: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=600&q=80", slug: "australia" },
+    { name: "Canada", flag: "🇨🇦", funFact: "Best quality of life", tag: "PR", image: "https://images.unsplash.com/photo-1517935706615-2717063c2225?w=600&q=80", slug: "canada" },
+    { name: "Singapore", flag: "🇸🇬", funFact: "Asia's smartest city", tag: "Investor", image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=600&q=80", slug: "singapore" },
   ];
 
   const services = [
     {
-      title: 'Initial Consultation & Assessment',
-      description: 'Comprehensive evaluation of your eligibility and recommendation of the best Golden Visa program based on your goals.',
-      features: ['Free 1-hour consultation', 'Eligibility assessment', 'Program comparison', 'Investment analysis']
+      icon: Building,
+      title: "Golden Visa Programs",
+      description: "Investment-based residency in Portugal, Spain, Greece, Malta, and more. Fast-track to EU citizenship.",
+      features: ["Real estate investment", "Fast EU access", "Family inclusion", "Residency in 6-12 months"]
     },
     {
-      title: 'Document Preparation & Legal Support',
-      description: 'Complete handling of all required documentation with legal review and government submission support.',
-      features: ['Document collection & review', 'Legal translations', 'Apostille services', 'Government submissions']
+      icon: Briefcase,
+      title: "Business & Investor Visas",
+      description: "Start or expand your business internationally. Entrepreneur and startup visas for global markets.",
+      features: ["Startup visas", "Business expansion", "Investment opportunities", "Expert guidance"]
     },
     {
-      title: 'Investment Advisory & Management',
-      description: 'Expert guidance on investment options including real estate, funds, and business investments for Golden Visa programs.',
-      features: ['Investment sourcing', 'Due diligence', 'Portfolio management', 'ROI optimization']
+      icon: Heart,
+      title: "Family Reunification",
+      description: "Bring your family together. Spouse, children, and dependent relative visa applications.",
+      features: ["Spouse visas", "Dependent children", "Parent visas", "Complete documentation"]
     },
     {
-      title: 'Ongoing Support & Citizenship Path',
-      description: 'Continuous support throughout your residency journey and guidance toward citizenship eligibility.',
-      features: ['Residency maintenance', 'Renewal assistance', 'Citizenship preparation', '24/7 support']
+      icon: Plane,
+      title: "Tourist & Visit Visas",
+      description: "Short-term visas for tourism, business meetings, medical treatment, and family visits.",
+      features: ["Tourism visas", "Business visits", "Medical visas", "Fast processing"]
+    },
+    {
+      icon: GraduationCap,
+      title: "Study & Work Permits",
+      description: "Education visas and post-study work permits. Study abroad opportunities worldwide.",
+      features: ["Student visas", "Work permits", "Post-study options", "University placement"]
+    },
+    {
+      icon: Users,
+      title: "Citizenship Programs",
+      description: "Second citizenship and passport programs. Fast-track citizenship by investment.",
+      features: ["Dual citizenship", "Passport programs", "Citizenship by investment", "Legal support"]
     }
   ];
 
   return (
     <>
       {/* Hero Section */}
-      <section className="py-20 lg:py-28 bg-gradient-to-br from-primary-50 to-secondary-50">
-        <div className="container-max section-padding">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-secondary-900 mb-6">
-              Golden Visa <span className="text-primary-600">Programs</span>
-            </h1>
-            <p className="text-xl text-secondary-600 mb-8 leading-relaxed">
-              Explore premium investment-based residency programs across 10 countries. 
-              Secure your global mobility with expert guidance and proven success rates.
-            </p>
-            <div className="flex justify-center">
-              <Link to="/contact" className="btn-primary inline-flex items-center space-x-2">
-                <span>Find Your Perfect Program</span>
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </div>
-          </div>
+      <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-[#0A1628]">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&q=80"
+            alt="Services"
+            className="w-full h-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A1628] via-[#0A1628]/90 to-[#0A1628]/70" />
+        </div>
+
+        {/* Grid pattern */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.04]">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="absolute h-px bg-[#FFFEF9] w-full" style={{ top: `${i * 16}%` }} />
+          ))}
+        </div>
+
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#C9A84C]/40 to-transparent" />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 mb-8"
+          >
+            <span className="text-[#C9A84C] text-xs font-semibold tracking-[0.25em] uppercase">
+              Our Services
+            </span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="font-serif text-4xl lg:text-6xl text-white leading-tight mb-6"
+          >
+            Immigration Solutions for{" "}
+            <span className="shimmer-text">Every Journey</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-lg text-white/60 leading-relaxed max-w-3xl mx-auto"
+          >
+            From tourist visas to Golden Visa programs, we handle immigration to any country worldwide. 
+            Expert guidance for individuals, families, and businesses.
+          </motion.p>
         </div>
       </section>
 
-      {/* Featured Countries */}
-      <section className="py-20">
-        <div className="container-max section-padding">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-secondary-900 mb-4">
-              Available Programs
+      {/* Services Grid */}
+      <section className="py-28 bg-[#F8F7F4] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: `radial-gradient(circle, #C9A84C 1px, transparent 1px)`, backgroundSize: "36px 36px" }} />
+        
+        <div className="relative max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="inline-block text-[#C9A84C] text-xs font-bold tracking-[0.35em] uppercase mb-4">
+              What We Offer
+            </span>
+            <h2 className="font-serif text-4xl lg:text-5xl text-[#0A1628] leading-tight mb-4">
+              Comprehensive Immigration Services
             </h2>
-            <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
-              Choose from our carefully selected Golden Visa programs offering the best combination 
-              of investment returns, lifestyle benefits, and citizenship pathways.
-            </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {countries.map((country) => (
-              <div key={country.code} className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-200 overflow-hidden group">
-                {country.popular && (
-                  <div className="bg-gold-500 text-white text-center py-2 text-sm font-semibold">
-                    Most Popular
-                  </div>
-                )}
-                
-                <div className="p-8">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center space-x-4">
-                      <div className="text-4xl">{country.flag}</div>
-                      <div>
-                        <h3 className="text-2xl font-bold text-secondary-900 group-hover:text-primary-600 transition-colors">
-                          {country.name}
-                        </h3>
-                        <p className="text-secondary-600">{country.title}</p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-2xl font-bold text-primary-600">
-                        {country.minInvestment}
-                      </div>
-                      <div className="text-sm text-secondary-500">minimum</div>
-                    </div>
-                  </div>
-
-                  <p className="text-secondary-600 mb-6 leading-relaxed">
-                    {country.description}
-                  </p>
-
-                  {/* Key Metrics */}
-                  <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-secondary-50 rounded-lg">
-                    <div className="text-center">
-                      <div className="flex items-center justify-center mb-1">
-                        <Clock className="w-4 h-4 text-primary-600" />
-                      </div>
-                      <div className="text-sm font-semibold text-secondary-900">{country.timeframe}</div>
-                      <div className="text-xs text-secondary-500">Processing</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="flex items-center justify-center mb-1">
-                        <Users className="w-4 h-4 text-primary-600" />
-                      </div>
-                      <div className="text-sm font-semibold text-secondary-900">{country.citizenship}</div>
-                      <div className="text-xs text-secondary-500">to Citizenship</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="flex items-center justify-center mb-1">
-                        <Globe className="w-4 h-4 text-primary-600" />
-                      </div>
-                      <div className="text-sm font-semibold text-secondary-900">170+</div>
-                      <div className="text-xs text-secondary-500">Countries</div>
-                    </div>
-                  </div>
-
-                  {/* Benefits */}
-                  <div className="mb-6">
-                    <div className="grid grid-cols-2 gap-2">
-                      {country.benefits.map((benefit, index) => (
-                        <div key={index} className="flex items-center space-x-2">
-                          <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                          <span className="text-sm text-secondary-600">{benefit}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="flex space-x-4">
-                    <Link 
-                      to={`/country/${country.code}`}
-                      className="flex-1 bg-primary-600 hover:bg-primary-700 text-white text-center py-3 px-6 rounded-lg font-semibold transition-colors duration-200"
-                    >
-                      Learn More
-                    </Link>
-                    <Link 
-                      to="/contact"
-                      className="flex-1 bg-transparent border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white text-center py-3 px-6 rounded-lg font-semibold transition-all duration-200"
-                    >
-                      Get Quote
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Our Services */}
-      <section className="py-20 bg-secondary-50">
-        <div className="container-max section-padding">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-secondary-900 mb-4">
-              Comprehensive Service Package
-            </h2>
-            <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
-              End-to-end support from initial consultation to citizenship. 
-              We handle every aspect of your Golden Visa journey.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <div key={index} className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-200">
-                <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
-                  <span className="text-primary-600 font-bold text-xl">{index + 1}</span>
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
+                className="group bg-[#FFFEF9] border border-gray-100/50 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:shadow-[#C9A84C]/10 transition-all duration-500"
+              >
+                <div className="w-14 h-14 bg-[#C9A84C]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#C9A84C] transition-colors duration-300">
+                  <service.icon className="w-7 h-7 text-[#C9A84C] group-hover:text-white transition-colors duration-300" />
                 </div>
-                
-                <h3 className="text-xl font-bold text-secondary-900 mb-4">
+                <h3 className="text-xl font-bold text-[#0A1628] mb-3">
                   {service.title}
                 </h3>
-                
-                <p className="text-secondary-600 mb-6 leading-relaxed">
+                <p className="text-gray-600 mb-6 leading-relaxed">
                   {service.description}
                 </p>
-                
                 <ul className="space-y-2">
-                  {service.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center space-x-3">
-                      <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                      <span className="text-secondary-600">{feature}</span>
+                  {service.features.map((feature, i) => (
+                    <li key={i} className="flex items-center text-sm text-gray-600">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] mr-2" />
+                      {feature}
                     </li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Comparison Table */}
-      <section className="py-20">
-        <div className="container-max section-padding">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-secondary-900 mb-4">
-              Program Comparison
+      {/* Countries Grid */}
+      <section className="py-28 bg-[#FAF9F6]">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="inline-block text-[#C9A84C] text-xs font-bold tracking-[0.35em] uppercase mb-4">
+              Popular Destinations
+            </span>
+            <h2 className="font-serif text-4xl lg:text-5xl text-[#0A1628] leading-tight mb-4">
+              Immigration Programs Worldwide
             </h2>
-            <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
-              Compare key features across our most popular Golden Visa programs
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              We serve all countries globally. Browse our most popular Golden Visa and residency programs.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full bg-white rounded-xl shadow-md overflow-hidden">
-              <thead className="bg-primary-600 text-white">
-                <tr>
-                  <th className="px-6 py-4 text-left">Country</th>
-                  <th className="px-6 py-4 text-left">Min. Investment</th>
-                  <th className="px-6 py-4 text-left">Processing Time</th>
-                  <th className="px-6 py-4 text-left">Citizenship Path</th>
-                  <th className="px-6 py-4 text-left">EU Access</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-secondary-100">
-                {countries.slice(0, 6).map((country, index) => (
-                  <tr key={country.code} className={index % 2 === 0 ? 'bg-secondary-50' : 'bg-white'}>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center space-x-3">
-                        <span className="text-2xl">{country.flag}</span>
-                        <span className="font-semibold text-secondary-900">{country.name}</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 font-semibold text-primary-600">{country.minInvestment}</td>
-                    <td className="px-6 py-4 text-secondary-600">{country.timeframe}</td>
-                    <td className="px-6 py-4 text-secondary-600">{country.citizenship}</td>
-                    <td className="px-6 py-4">
-                      {['portugal', 'spain', 'greece', 'cyprus', 'malta'].includes(country.code) ? (
-                        <CheckCircle className="w-5 h-5 text-green-500" />
-                      ) : (
-                        <span className="text-secondary-400">—</span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+            {countries.map((country, i) => (
+              <motion.div
+                key={country.slug}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: (i % 5) * 0.07 }}
+              >
+                <Link
+                  to={`/country/${country.slug}`}
+                  className="group relative flex flex-col rounded-2xl overflow-hidden cursor-pointer bg-[#FFFEF9] border border-gray-100/50 shadow-sm hover:shadow-xl hover:shadow-[#C9A84C]/10 transition-all duration-500 h-full"
+                >
+                  <div className="relative h-44 overflow-hidden">
+                    <img
+                      src={country.image}
+                      alt={country.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/60 via-transparent to-transparent" />
+                    <div className="absolute top-3 left-3 px-2.5 py-1 bg-[#C9A84C] rounded-full text-[#0A1628] text-[10px] font-bold tracking-wider uppercase">
+                      {country.tag}
+                    </div>
+                  </div>
 
-          <div className="text-center mt-8">
-            <Link to="/contact" className="btn-primary inline-flex items-center space-x-2">
-              <span>Request Detailed Comparison</span>
-              <ArrowRight className="w-5 h-5" />
-            </Link>
+                  <div className="p-5 flex flex-col flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-2xl">{country.flag}</span>
+                      <h3 className="font-bold text-[#0A1628] text-base leading-tight">{country.name}</h3>
+                    </div>
+                    <p className="text-gray-600 text-xs mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
+                      {country.funFact}
+                      <ArrowUpRight className="w-4 h-4 text-[#C9A84C] opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </p>
+                  </div>
+
+                  <div className="absolute inset-0 rounded-2xl border-2 border-[#C9A84C]/0 group-hover:border-[#C9A84C]/30 transition-colors duration-500 pointer-events-none" />
+                </Link>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-primary-900 text-white">
-        <div className="container-max section-padding">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-              Ready to Secure Your Global Future?
+      {/* CTA */}
+      <section className="relative py-28 bg-[#0A1628] overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#FFFEF9] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#C9A84C] rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="relative max-w-3xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="font-serif text-4xl lg:text-5xl text-white mb-6">
+              Not Sure Which Service You Need?
             </h2>
-            <p className="text-xl mb-8 text-primary-100 leading-relaxed">
-              Book a free consultation to discover which Golden Visa program 
-              is the perfect fit for your investment goals and lifestyle preferences.
+            <p className="text-xl text-white/60 mb-10">
+              Book a consultation and we'll recommend the best immigration pathway for your goals
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
-                to="/contact" 
-                className="bg-gold-500 hover:bg-gold-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 inline-flex items-center justify-center space-x-2"
-              >
-                <span>Book Free Consultation</span>
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link 
-                to="/process" 
-                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-900 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200"
-              >
-                Learn Our Process
-              </Link>
-            </div>
-          </div>
+            <Link 
+              to="/contact" 
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#C9A84C] to-[#D4B85A] text-[#0A1628] font-bold rounded-full hover:shadow-2xl hover:shadow-[#C9A84C]/30 hover:scale-[1.03] transition-all duration-300"
+            >
+              Book Consultation
+            </Link>
+          </motion.div>
         </div>
       </section>
     </>
