@@ -1,66 +1,9 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Users, Globe, Award, TrendingUp } from 'lucide-react';
 import Testimonials from '../components/Testimonials';
+import GlobeSelector from '../components/GlobeSelector';
 
 const HomePage = () => {
-  const countries = [
-    { 
-      code: 'portugal', 
-      name: 'Portugal', 
-      flag: '🇵🇹', 
-      minInvestment: '€280,000',
-      feature: 'EU Access'
-    },
-    { 
-      code: 'spain', 
-      name: 'Spain', 
-      flag: '🇪🇸', 
-      minInvestment: '€500,000',
-      feature: 'Schengen Zone'
-    },
-    { 
-      code: 'greece', 
-      name: 'Greece', 
-      flag: '🇬🇷', 
-      minInvestment: '€250,000',
-      feature: 'EU Residency'
-    },
-    { 
-      code: 'cyprus', 
-      name: 'Cyprus', 
-      flag: '🇨🇾', 
-      minInvestment: '€300,000',
-      feature: 'EU Passport'
-    },
-    { 
-      code: 'malta', 
-      name: 'Malta', 
-      flag: '🇲🇹', 
-      minInvestment: '€150,000',
-      feature: 'EU Member'
-    },
-    { 
-      code: 'uk', 
-      name: 'UK', 
-      flag: '🇬🇧', 
-      minInvestment: '£2,000,000',
-      feature: 'Tier 1 Visa'
-    },
-    { 
-      code: 'newzealand', 
-      name: 'New Zealand', 
-      flag: '🇳🇿', 
-      minInvestment: 'NZ$3,000,000',
-      feature: 'Residency'
-    },
-    { 
-      code: 'australia', 
-      name: 'Australia', 
-      flag: '🇦🇺', 
-      minInvestment: 'AU$5,000,000',
-      feature: 'Permanent Visa'
-    },
-  ];
 
   const benefits = [
     {
@@ -140,52 +83,8 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Featured Countries */}
-      <section className="py-20 bg-secondary-50">
-        <div className="container-max section-padding">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-secondary-900 mb-4">
-              Popular Immigration Destinations
-            </h2>
-            <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
-              We serve ALL countries worldwide. Here are our most popular Golden Visa and investment programs.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {countries.map((country) => (
-              <Link
-                key={country.code}
-                to={`/country/${country.code}`}
-                className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-200 group"
-              >
-                <div className="text-center">
-                  <div className="text-4xl mb-3">{country.flag}</div>
-                  <h3 className="text-lg font-semibold text-secondary-900 mb-2 group-hover:text-primary-600 transition-colors">
-                    {country.name}
-                  </h3>
-                  <div className="text-primary-600 font-semibold mb-2">
-                    From {country.minInvestment}
-                  </div>
-                  <div className="text-sm text-secondary-500 bg-secondary-100 px-3 py-1 rounded-full inline-block">
-                    {country.feature}
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Link 
-              to="/services" 
-              className="btn-primary inline-flex items-center space-x-2"
-            >
-              <span>View All Countries</span>
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* 3D Globe Country Selector */}
+      <GlobeSelector />
 
       {/* Benefits Section */}
       <section className="py-20">
