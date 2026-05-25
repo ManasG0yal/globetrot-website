@@ -29,10 +29,8 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="group-hover:scale-110 transition-all duration-300">
-              <PenroseLogo className="w-10 h-10 drop-shadow-lg" />
-            </div>
-            <span className="text-2xl font-bold text-white tracking-tight">GLOBETROT</span>
+            <PenroseLogo className="w-8 h-8" size={32} />
+            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 700, fontSize: "1.6rem", letterSpacing: "0.08em" }} className="text-white">GLOBETRIA</span>
           </Link>
 
           {/* Desktop Menu */}
@@ -127,13 +125,6 @@ const Navbar = () => {
               Contact
             </Link>
 
-            {/* CTA Button */}
-            <Link
-              to="/contact"
-              className="ml-4 px-6 py-2.5 bg-gradient-to-r from-[#C9A84C] to-[#D4B85A] text-[#0A1628] font-bold rounded-full hover:shadow-xl hover:shadow-[#C9A84C]/30 hover:scale-105 transition-all duration-300"
-            >
-              Get Started
-            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -205,13 +196,6 @@ const Navbar = () => {
                 Contact
               </Link>
 
-              <Link
-                to="/contact"
-                onClick={() => setIsOpen(false)}
-                className="mt-4 px-6 py-3 bg-gradient-to-r from-[#C9A84C] to-[#D4B85A] text-[#0A1628] font-bold rounded-full text-center hover:shadow-xl transition-all duration-300"
-              >
-                Get Started
-              </Link>
             </div>
           </div>
         )}

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Globe, Linkedin, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin, Globe, Linkedin, Instagram } from 'lucide-react';
 import PenroseLogo from './PenroseLogo';
 
 const Footer = () => {
@@ -31,19 +31,19 @@ const Footer = () => {
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2 lg:col-span-1">
             <div className="flex items-center space-x-3 mb-6">
-              <PenroseLogo className="w-8 h-8" />
-              <span className="text-2xl font-bold text-white">GLOBETROT</span>
+              <PenroseLogo className="w-8 h-8" size={32} />
+              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 700, fontSize: "1.6rem", letterSpacing: "0.08em" }} className="text-white">GLOBETRIA</span>
             </div>
             <p className="text-white/60 mb-6 leading-relaxed">
               Comprehensive immigration services for any destination worldwide. From tourist and business visas 
               to Golden Visa programs and family reunification - we handle all your global mobility needs.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-white/40 hover:text-[#C9A84C] transition-colors duration-300">
+              <a href="https://www.linkedin.com/company/globetrot-management-consulting/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#C9A84C] transition-colors duration-300">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="#" className="text-white/40 hover:text-[#C9A84C] transition-colors duration-300">
-                <Twitter className="w-5 h-5" />
+              <a href="https://www.instagram.com/globetrotmigration33/" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#C9A84C] transition-colors duration-300">
+                <Instagram className="w-5 h-5" />
               </a>
               <a href="#" className="text-white/40 hover:text-[#C9A84C] transition-colors duration-300">
                 <Globe className="w-5 h-5" />

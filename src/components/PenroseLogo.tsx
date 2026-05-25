@@ -1,83 +1,74 @@
+const LENGTH = 200;
+const THICKNESS = 40;
+const SQRT = 0.86602540378;
+
+const RAW_W = LENGTH + THICKNESS;
+const RAW_H = (LENGTH + 3 * THICKNESS) * SQRT;
+
+const ARMS = [
+  { rot: "rotateZ(0deg)",   color: "hsla(0,60%,60%,1)" },
+  { rot: "rotateZ(120deg)", color: "hsla(0,60%,40%,1)" },
+  { rot: "rotateZ(240deg)", color: "hsla(0,60%,80%,1)" },
+];
+
 interface PenroseLogoProps {
   className?: string;
+  size?: number;
 }
 
-export default function PenroseLogo({ className = "w-10 h-10" }: PenroseLogoProps) {
+export default function PenroseLogo({ className = "w-10 h-10", size = 40 }: PenroseLogoProps) {
+  const scale = size / Math.max(RAW_W, RAW_H);
+
   return (
-    <svg 
-      viewBox="0 0 100 100" 
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {/* Penrose Triangle - Impossible Triangle */}
-      <defs>
-        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#C9A84C" />
-          <stop offset="100%" stopColor="#D4B85A" />
-        </linearGradient>
-      </defs>
-      
-      {/* Main Penrose Triangle Shape */}
-      <g transform="translate(50, 50)">
-        {/* Bottom Left Face */}
-        <path
-          d="M -20,15 L -35,35 L 0,35 L 15,15 Z"
-          fill="url(#goldGradient)"
-          opacity="1"
-        />
-        
-        {/* Bottom Right Face */}
-        <path
-          d="M 15,15 L 0,35 L 35,35 L 20,15 Z"
-          fill="#B89640"
-          opacity="0.85"
-        />
-        
-        {/* Left Top Face */}
-        <path
-          d="M -20,15 L -20,-20 L -5,-25 L -5,10 Z"
-          fill="#E8D48B"
-          opacity="0.95"
-        />
-        
-        {/* Right Top Face */}
-        <path
-          d="M 20,15 L 5,10 L 5,-25 L 20,-20 Z"
-          fill="#C9A84C"
-          opacity="0.9"
-        />
-        
-        {/* Top Center Face */}
-        <path
-          d="M -5,-25 L 0,-40 L 5,-25 Z"
-          fill="url(#goldGradient)"
-          opacity="1"
-        />
-        
-        {/* Inner triangle cutout (creates the impossible effect) */}
-        <path
-          d="M -5,10 L 0,0 L 5,10 Z"
-          fill="#0A1628"
-          opacity="1"
-        />
-        
-        {/* Edge highlights for 3D effect */}
-        <path
-          d="M -20,-20 L -5,-25 L 0,-40"
-          stroke="#F5E6A8"
-          strokeWidth="1"
-          fill="none"
-          opacity="0.6"
-        />
-        
-        <path
-          d="M 20,-20 L 5,-25 L 0,-40"
-          stroke="#F5E6A8"
-          strokeWidth="1"
-          fill="none"
-          opacity="0.6"
-        />
-      </g>
-    </svg>
+    <div className={className} style={{ position: "relative", overflow: "visible", flexShrink: 0 }}>
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: RAW_W,
+          height: RAW_H,
+          transformOrigin: "top left",
+          transform: `scale(${scale})`,
+        }}
+      >
+        {ARMS.map(({ rot, color }) => (
+          <div
+            key={rot}
+            style={{
+              position: "absolute",
+              width: RAW_W,
+              height: RAW_H,
+              boxSizing: "content-box",
+              transformOrigin: "50% 66.666666%",
+              transform: rot,
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                bottom: 0,
+                width: LENGTH - THICKNESS,
+                height: THICKNESS * SQRT,
+                transformOrigin: "0% 100%",
+                transform: `translateX(${THICKNESS}px) rotate(-60deg) skewX(-30deg)`,
+                background: color,
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                bottom: 0,
+                width: LENGTH + THICKNESS,
+                height: THICKNESS * SQRT,
+                transformOrigin: "100% 100%",
+                transform: "skewX(-30deg)",
+                background: color,
+              }}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

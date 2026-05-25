@@ -9,6 +9,7 @@ import ContactPage from './pages/ContactPage';
 import CountryPage from './pages/CountryPage';
 import { ArrowUp, MessageCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import AppGenie from './components/AppGenie';
 
 function App() {
   const [showTop, setShowTop] = useState(false);
@@ -93,6 +94,8 @@ function App() {
           </Routes>
         </main>
         <Footer />
+
+        <AppGenie />
 
         {/* Floating WhatsApp Button */}
         <a

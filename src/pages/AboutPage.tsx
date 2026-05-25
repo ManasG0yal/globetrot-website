@@ -29,33 +29,35 @@ const AboutPage = () => {
 
   const team = [
     {
-      name: 'Sarah Al-Mansouri',
-      position: 'Founding Partner & CEO',
-      qualifications: ['ICCRC Licensed', 'LLM Immigration Law', '15+ Years Experience'],
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b098?w=300&h=300&fit=crop&crop=face',
-      bio: 'Former government immigration officer turned entrepreneur, Sarah has helped over 500 families secure their global mobility goals.'
+      name: 'Aman Sharma',
+      position: 'Founder & CEO',
+      qualifications: ['Immigration Expert', 'Founder & CEO', '8+ Years Experience'],
+      image: '/akshat.jpeg',
+      bio: 'Visionary entrepreneur and founder of Globetria, Aman has helped hundreds of families and investors achieve their global mobility goals across 28+ countries.'
     },
     {
-      name: 'David Chen',
-      position: 'Senior Investment Advisor',
-      qualifications: ['CFA Chartered', 'Real Estate Expert', '12+ Years Experience'],
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face',
-      bio: 'Investment specialist focusing on Golden Visa real estate and financial portfolio optimization for residency programs.'
+      name: 'Akshat Sharma',
+      position: 'Operations Officer',
+      qualifications: ['Operations Expert', 'Client Relations', '8+ Years Experience'],
+      image: '/akshat.jpg',
+      objectPosition: '50% -75px',
+      bio: 'Akshat oversees day-to-day operations ensuring every client case is handled efficiently and with the highest standards of service delivery.'
     },
     {
-      name: 'Maria Rodriguez',
-      position: 'European Programs Director',
-      qualifications: ['EU Law Specialist', 'Multi-lingual', '10+ Years Experience'],
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face',
-      bio: 'Expert in European Golden Visa programs with deep knowledge of Portuguese, Spanish, and Greek immigration systems.'
+      name: 'Sukhwinder',
+      position: 'Technical Officer',
+      qualifications: ['Tech Infrastructure', 'Systems Expert', '8+ Years Experience'],
+      image: '/sukhwinder.jpg',
+      objectPosition: '50% -60px',
+      bio: 'Sukhwinder leads the technical infrastructure of Globetria, ensuring seamless digital processes and secure handling of all client data.'
     }
   ];
 
   const stats = [
-    { number: '1200', suffix: '+', label: 'Successful Applications' },
+    { number: '598', suffix: '+', label: 'Successful Applications' },
     { number: '98', suffix: '%', label: 'Success Rate' },
-    { number: '15', suffix: '+', label: 'Years Experience' },
-    { number: '10', suffix: '', label: 'Countries Served' }
+    { number: '8', suffix: '+', label: 'Years Experience' },
+    { number: '28', suffix: '+', label: 'Countries Served' }
   ];
 
   const coreValues = [
@@ -299,6 +301,7 @@ const AboutPage = () => {
                     src={member.image}
                     alt={member.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    style={{ objectPosition: (member as any).objectPosition || '50% 20%' }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/70 to-transparent" />
                 </div>

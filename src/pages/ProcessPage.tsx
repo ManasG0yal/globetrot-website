@@ -211,10 +211,6 @@ const ProcessPage = () => {
                           <h3 className="text-2xl font-bold text-[#0A1628]">
                             {step.title}
                           </h3>
-                          <div className="flex items-center gap-2 mt-1">
-                            <Clock className="w-4 h-4 text-[#C9A84C]" />
-                            <span className="text-sm text-[#C9A84C] font-semibold">{step.duration}</span>
-                          </div>
                         </div>
                       </div>
                     </div>

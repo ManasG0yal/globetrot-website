@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import AnimatedCounter from "../components/AnimatedCounter";
 
 const stats = [
-  { number: "1200", suffix: "+", label: "Successful Applications" },
-  { number: "15", suffix: "+", label: "Years Experience" },
-  { number: "10", suffix: "", label: "Countries Served" },
+  { number: "598", suffix: "+", label: "Successful Applications" },
+  { number: "8", suffix: "+", label: "Years Experience" },
+  { number: "28", suffix: "+", label: "Countries Served" },
   { number: "98", suffix: "%", label: "Success Rate" },
 ];
 
@@ -221,7 +221,7 @@ export default function HomePage() {
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-2xl border border-white/15 rounded-2xl p-5 shadow-2xl float-anim"
                 style={{ animationDelay: "1s" }}
               >
-                <div className="text-[#C9A84C] text-3xl font-bold">10</div>
+                <div className="text-[#C9A84C] text-3xl font-bold">28+</div>
                 <div className="text-white text-xs font-medium mt-1 uppercase tracking-wider">Countries</div>
                 <div className="text-white/40 text-xs">Available</div>
               </motion.div>

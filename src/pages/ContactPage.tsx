@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from 'lucide-react';
-import emailjs from '@emailjs/browser';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +9,6 @@ const ContactPage = () => {
     email: '',
     phone: '',
     country: '',
-    investmentAmount: '',
     preferredCountries: [],
     message: '',
     howDidYouHear: ''
@@ -18,14 +16,6 @@ const ContactPage = () => {
 
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
-
-  const investmentRanges = [
-    '€250,000 - €500,000',
-    '€500,000 - €1,000,000',
-    '€1,000,000 - €2,000,000',
-    '€2,000,000 - €5,000,000',
-    '€5,000,000+'
-  ];
 
   const countries = [
     'Portugal', 'Spain', 'Greece', 'Cyprus', 'Malta', 
@@ -37,24 +27,13 @@ const ContactPage = () => {
     setSending(true);
 
     try {
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID';
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-      const templateParams = {
-        to_email: 'info@globetrotmigration.com',
-        from_name: `${formData.firstName} ${formData.lastName}`,
-        from_email: formData.email,
-        phone: formData.phone,
-        country: formData.country,
-        investment_amount: formData.investmentAmount,
-        preferred_countries: formData.preferredCountries.join(', '),
-        how_heard: formData.howDidYouHear,
-        message: formData.message,
-        submission_date: new Date().toLocaleString()
-      };
-
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      if (!res.ok) throw new Error('Server error');
       setSubmitted(true);
     } catch (error) {
       console.error('Email send failed:', error);
@@ -310,24 +289,6 @@ const ContactPage = () => {
                     required
                     className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors"
                   />
-                </div>
-
-                <div className="mb-6">
-                  <label className="block text-sm font-semibold text-[#0A1628] mb-2">
-                    Investment Budget *
-                  </label>
-                  <select
-                    name="investmentAmount"
-                    value={formData.investmentAmount}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors"
-                  >
-                    <option value="">Select budget range</option>
-                    {investmentRanges.map(range => (
-                      <option key={range} value={range}>{range}</option>
-                    ))}
-                  </select>
                 </div>
 
                 <div className="mb-6">
