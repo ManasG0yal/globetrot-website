@@ -270,7 +270,7 @@ const ContactPage = () => {
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6 mb-6">
-                  <div>
+                  <div className="md:col-span-2">
                     <label className="block text-sm font-semibold text-[#0A1628] mb-2">
                       Email *
                     </label>
@@ -301,15 +301,15 @@ const ContactPage = () => {
                       </p>
                     )}
                   </div>
-                  <div>
+                  <div className="md:col-span-2">
                     <label className="block text-sm font-semibold text-[#0A1628] mb-2">
                       Phone *
                     </label>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 w-full">
                       <select
                         value={dialCode}
                         onChange={e => setDialCode(e.target.value)}
-                        className="px-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors bg-white text-sm cursor-pointer"
+                        className="shrink-0 w-48 px-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors bg-white text-sm cursor-pointer"
                       >
                         {COUNTRY_CODES.map(c => (
                           <option key={c.code + c.dial} value={c.dial}>
@@ -324,7 +324,7 @@ const ContactPage = () => {
                         onChange={handleChange}
                         required
                         placeholder="50 123 4567"
-                        className="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors"
+                        className="flex-1 min-w-0 px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors"
                       />
                     </div>
                   </div>
