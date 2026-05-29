@@ -1,6 +1,37 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send, CheckCircle, AlertTriangle } from 'lucide-react';
+
+const COUNTRY_CODES = [
+  { code: 'AE', dial: '+971', flag: '🇦🇪', name: 'UAE' },
+  { code: 'IN', dial: '+91',  flag: '🇮🇳', name: 'India' },
+  { code: 'PK', dial: '+92',  flag: '🇵🇰', name: 'Pakistan' },
+  { code: 'GB', dial: '+44',  flag: '🇬🇧', name: 'UK' },
+  { code: 'US', dial: '+1',   flag: '🇺🇸', name: 'USA' },
+  { code: 'CA', dial: '+1',   flag: '🇨🇦', name: 'Canada' },
+  { code: 'AU', dial: '+61',  flag: '🇦🇺', name: 'Australia' },
+  { code: 'NZ', dial: '+64',  flag: '🇳🇿', name: 'New Zealand' },
+  { code: 'PT', dial: '+351', flag: '🇵🇹', name: 'Portugal' },
+  { code: 'ES', dial: '+34',  flag: '🇪🇸', name: 'Spain' },
+  { code: 'GR', dial: '+30',  flag: '🇬🇷', name: 'Greece' },
+  { code: 'CY', dial: '+357', flag: '🇨🇾', name: 'Cyprus' },
+  { code: 'MT', dial: '+356', flag: '🇲🇹', name: 'Malta' },
+  { code: 'SG', dial: '+65',  flag: '🇸🇬', name: 'Singapore' },
+  { code: 'SA', dial: '+966', flag: '🇸🇦', name: 'Saudi Arabia' },
+  { code: 'QA', dial: '+974', flag: '🇶🇦', name: 'Qatar' },
+  { code: 'KW', dial: '+965', flag: '🇰🇼', name: 'Kuwait' },
+  { code: 'BH', dial: '+973', flag: '🇧🇭', name: 'Bahrain' },
+  { code: 'OM', dial: '+968', flag: '🇴🇲', name: 'Oman' },
+  { code: 'DE', dial: '+49',  flag: '🇩🇪', name: 'Germany' },
+  { code: 'FR', dial: '+33',  flag: '🇫🇷', name: 'France' },
+  { code: 'ZA', dial: '+27',  flag: '🇿🇦', name: 'South Africa' },
+  { code: 'NG', dial: '+234', flag: '🇳🇬', name: 'Nigeria' },
+  { code: 'EG', dial: '+20',  flag: '🇪🇬', name: 'Egypt' },
+  { code: 'BD', dial: '+880', flag: '🇧🇩', name: 'Bangladesh' },
+  { code: 'LK', dial: '+94',  flag: '🇱🇰', name: 'Sri Lanka' },
+  { code: 'NP', dial: '+977', flag: '🇳🇵', name: 'Nepal' },
+  { code: 'PH', dial: '+63',  flag: '🇵🇭', name: 'Philippines' },
+];
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -14,8 +45,12 @@ const ContactPage = () => {
     howDidYouHear: ''
   });
 
+  const [dialCode, setDialCode] = useState('+971');
+  const [emailTouched, setEmailTouched] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+
+  const isValidEmail = (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +60,7 @@ const ContactPage = () => {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, phone: `${dialCode} ${formData.phone}` }),
       });
 
       if (!res.ok) throw new Error('Server error');
@@ -239,27 +274,59 @@ const ContactPage = () => {
                     <label className="block text-sm font-semibold text-[#0A1628] mb-2">
                       Email *
                     </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors"
-                    />
+                    <div className="relative">
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        onBlur={() => setEmailTouched(true)}
+                        required
+                        placeholder="you@example.com"
+                        className={`w-full px-4 py-3 pr-10 border rounded-xl focus:outline-none transition-colors ${
+                          emailTouched && formData.email && !isValidEmail(formData.email)
+                            ? 'border-amber-400 bg-amber-50 focus:border-amber-500'
+                            : 'border-gray-200 focus:border-[#C9A84C]'
+                        }`}
+                      />
+                      <AlertTriangle className={`absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 transition-opacity ${
+                        emailTouched && formData.email && !isValidEmail(formData.email)
+                          ? 'opacity-100 text-amber-500'
+                          : 'opacity-0'
+                      }`} />
+                    </div>
+                    {emailTouched && formData.email && !isValidEmail(formData.email) && (
+                      <p className="mt-1.5 text-xs text-amber-600 flex items-center gap-1">
+                        <AlertTriangle className="w-3 h-3" /> Please enter a valid email address
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-[#0A1628] mb-2">
                       Phone *
                     </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors"
-                    />
+                    <div className="flex gap-2">
+                      <select
+                        value={dialCode}
+                        onChange={e => setDialCode(e.target.value)}
+                        className="px-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors bg-white text-sm cursor-pointer"
+                      >
+                        {COUNTRY_CODES.map(c => (
+                          <option key={c.code + c.dial} value={c.dial}>
+                            {c.flag} {c.name} ({c.dial})
+                          </option>
+                        ))}
+                      </select>
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        required
+                        placeholder="50 123 4567"
+                        className="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors"
+                      />
+                    </div>
                   </div>
                 </div>
 
