@@ -30,7 +30,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <PenroseLogo className="w-8 h-8" size={32} />
-            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 700, fontSize: "1.6rem", letterSpacing: "0.08em" }} className="text-white">GLOBETRIA</span>
+            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 700, fontSize: "1.6rem", letterSpacing: "0.08em" }} className="text-white">GLOBETROT</span>
           </Link>
 
           {/* Desktop Menu */}

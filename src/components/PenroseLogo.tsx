@@ -6,9 +6,9 @@ const RAW_W = LENGTH + THICKNESS;
 const RAW_H = (LENGTH + 3 * THICKNESS) * SQRT;
 
 const ARMS = [
-  { rot: "rotateZ(0deg)",   color: "hsla(0,60%,60%,1)" },
-  { rot: "rotateZ(120deg)", color: "hsla(0,60%,40%,1)" },
-  { rot: "rotateZ(240deg)", color: "hsla(0,60%,80%,1)" },
+  { rot: "rotateZ(0deg)",   color: "hsla(42,60%,55%,1)" },
+  { rot: "rotateZ(120deg)", color: "hsla(42,60%,35%,1)" },
+  { rot: "rotateZ(240deg)", color: "hsla(42,60%,75%,1)" },
 ];
 
 interface PenroseLogoProps {

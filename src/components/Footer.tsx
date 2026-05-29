@@ -32,7 +32,7 @@ const Footer = () => {
           <div className="col-span-1 md:col-span-2 lg:col-span-1">
             <div className="flex items-center space-x-3 mb-6">
               <PenroseLogo className="w-8 h-8" size={32} />
-              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 700, fontSize: "1.6rem", letterSpacing: "0.08em" }} className="text-white">GLOBETRIA</span>
+              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 700, fontSize: "1.6rem", letterSpacing: "0.08em" }} className="text-white">GLOBETROT</span>
             </div>
             <p className="text-white/60 mb-6 leading-relaxed">
               Comprehensive immigration services for any destination worldwide. From tourist and business visas 
@@ -120,10 +120,10 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-[#C9A84C] flex-shrink-0" />
                 <a 
-                  href="tel:+971582958724" 
+                  href="tel:+971048323705"
                   className="text-white/60 hover:text-[#C9A84C] transition-colors duration-300"
                 >
-                  +971 58 295 8724
+                  +971 048323705
                 </a>
               </div>
               <div className="flex items-center space-x-3">

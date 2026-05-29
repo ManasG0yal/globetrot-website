@@ -33,7 +33,7 @@ const AboutPage = () => {
       position: 'Founder & CEO',
       qualifications: ['Immigration Expert', 'Founder & CEO', '8+ Years Experience'],
       image: '/akshat.jpeg',
-      bio: 'Visionary entrepreneur and founder of Globetria, Aman has helped hundreds of families and investors achieve their global mobility goals across 28+ countries.'
+      bio: 'Visionary entrepreneur and founder of Globetrot, Aman has helped hundreds of families and investors achieve their global mobility goals across 28+ countries.'
     },
     {
       name: 'Akshat Sharma',
@@ -49,7 +49,7 @@ const AboutPage = () => {
       qualifications: ['Tech Infrastructure', 'Systems Expert', '8+ Years Experience'],
       image: '/sukhwinder.jpg',
       objectPosition: '50% -60px',
-      bio: 'Sukhwinder leads the technical infrastructure of Globetria, ensuring seamless digital processes and secure handling of all client data.'
+      bio: 'Sukhwinder leads the technical infrastructure of Globetrot, ensuring seamless digital processes and secure handling of all client data.'
     }
   ];
 

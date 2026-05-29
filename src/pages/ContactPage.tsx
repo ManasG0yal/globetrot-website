@@ -9,18 +9,13 @@ const ContactPage = () => {
     email: '',
     phone: '',
     country: '',
-    preferredCountries: [],
+    preferredCountries: '',
     message: '',
     howDidYouHear: ''
   });
 
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
-
-  const countries = [
-    'Portugal', 'Spain', 'Greece', 'Cyprus', 'Malta', 
-    'United Kingdom', 'New Zealand', 'Australia', 'Canada', 'Singapore'
-  ];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,15 +41,6 @@ const ContactPage = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleCountryChange = (country: string) => {
-    setFormData(prev => ({
-      ...prev,
-      preferredCountries: prev.preferredCountries.includes(country as never)
-        ? prev.preferredCountries.filter((c: string) => c !== country)
-        : [...prev.preferredCountries, country as never]
-    }));
   };
 
   if (submitted) {
@@ -177,8 +163,8 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-[#0A1628] mb-1">Phone</h3>
-                    <a href="tel:+971582958724" className="text-gray-600 text-sm hover:text-[#C9A84C] transition-colors">
-                      +971 58 295 8724
+                    <a href="tel:+971048323705" className="text-gray-600 text-sm hover:text-[#C9A84C] transition-colors">
+                      +971 048323705
                     </a>
                   </div>
                 </div>
@@ -292,22 +278,17 @@ const ContactPage = () => {
                 </div>
 
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold text-[#0A1628] mb-3">
-                    Countries of Interest (select multiple)
+                  <label className="block text-sm font-semibold text-[#0A1628] mb-2">
+                    Where would you like to go?
                   </label>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                    {countries.map(country => (
-                      <label key={country} className="flex items-center">
-                        <input
-                          type="checkbox"
-                          checked={formData.preferredCountries.includes(country as never)}
-                          onChange={() => handleCountryChange(country)}
-                          className="w-4 h-4 text-[#C9A84C] border-gray-300 rounded focus:ring-[#C9A84C]"
-                        />
-                        <span className="ml-2 text-sm text-gray-700">{country}</span>
-                      </label>
-                    ))}
-                  </div>
+                  <input
+                    type="text"
+                    name="preferredCountries"
+                    value={formData.preferredCountries}
+                    onChange={handleChange}
+                    placeholder="e.g. Portugal, Canada, Australia..."
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors"
+                  />
                 </div>
 
                 <div className="mb-6">

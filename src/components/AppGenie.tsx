@@ -48,8 +48,8 @@ export default function AppGenie() {
           animation: 'shimmer-bg 3s ease infinite',
           boxShadow: '0 0 24px rgba(201,168,76,0.5)',
         }}
-        title="Globetria App"
-        aria-label="Open Globetria App info"
+        title="Globetrot App"
+        aria-label="Open Globetrot App info"
       >
         <Sparkles className="w-6 h-6 text-[#0A1628]" />
       </motion.button>
@@ -115,7 +115,7 @@ export default function AppGenie() {
                     className="text-xl sm:text-2xl font-bold text-white mb-3"
                     style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: '0.04em' }}
                   >
-                    Globetria App
+                    Globetrot App
                   </h2>
                   <p className="text-white/55 text-sm leading-relaxed mb-5">
                     Your global mobility journey in the palm of your hand. Track applications, explore destinations, and connect with experts — all from one place.
