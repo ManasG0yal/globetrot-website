@@ -18,7 +18,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Notify the business
     await resend.emails.send({
       from: 'Globetrot <onboarding@resend.dev>',
-      to: 'manasgoyal1998@gmail.com',
+      to: 'info@globetrot.com',
       reply_to: email,
       subject: `New App Launch Subscriber: ${email}`,
       html: `
