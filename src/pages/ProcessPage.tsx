@@ -1,383 +1,311 @@
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Users, FileText, DollarSign, Award, Clock, Shield } from 'lucide-react';
+import { ClipboardCheck, FileText, DollarSign, Send, CheckCircle, Clock, ArrowRight } from 'lucide-react';
 
 const ProcessPage = () => {
   const steps = [
     {
-      step: 1,
-      title: 'Initial Consultation & Assessment',
-      duration: '1-2 weeks',
-      description: 'We begin with a comprehensive assessment of your personal situation, investment goals, and eligibility for various Golden Visa programs.',
+      number: "01",
+      icon: ClipboardCheck,
+      title: "Initial Consultation & Assessment",
+      duration: "1-2 weeks",
+      description: "Initial consultation to evaluate your eligibility and recommend the optimal immigration pathway based on your goals, qualifications, and budget.",
       details: [
-        'Free 60-minute consultation call with licensed expert',
-        'Detailed eligibility assessment across all programs',
-        'Investment capacity and risk tolerance evaluation',
-        'Program recommendation based on your specific needs',
-        'Timeline and cost breakdown for recommended programs'
-      ],
-      icon: Users
+        "Comprehensive eligibility assessment",
+        "Country and program recommendation",
+        "Timeline and cost breakdown",
+        "Q&A session with licensed consultant"
+      ]
     },
     {
-      step: 2,
-      title: 'Program Selection & Documentation',
-      duration: '2-4 weeks',
-      description: 'Once you select your preferred program, we guide you through the documentation process and begin preparing your application.',
+      number: "02",
+      icon: FileText,
+      title: "Documentation & Preparation",
+      duration: "2-4 weeks",
+      description: "We handle all paperwork, document translation, apostille services, and ensure every requirement is meticulously prepared.",
       details: [
-        'Detailed program briefing and requirements walkthrough',
-        'Document collection checklist and timeline',
-        'Legal document review and authentication',
-        'Translation and apostille services',
-        'Preparation of government-ready application package'
-      ],
-      icon: FileText
+        "Document checklist and guidance",
+        "Professional translation services",
+        "Apostille and legalization",
+        "Application form completion"
+      ]
     },
     {
-      step: 3,
-      title: 'Investment Sourcing & Due Diligence',
-      duration: '4-8 weeks',
-      description: 'We help you identify and secure qualifying investments that meet program requirements while maximizing your return potential.',
+      number: "03",
+      icon: DollarSign,
+      title: "Investment & Property Selection",
+      duration: "1-3 months",
+      description: "For Golden Visa programs, we connect you with trusted real estate agents and investment advisors to select compliant properties.",
       details: [
-        'Pre-vetted investment opportunity presentation',
-        'Comprehensive due diligence on all options',
-        'Legal review of investment agreements',
-        'Coordination with local legal and financial partners',
-        'Investment completion and documentation'
-      ],
-      icon: DollarSign
+        "Pre-approved property selection",
+        "Legal due diligence",
+        "Purchase agreement support",
+        "Investment verification"
+      ]
     },
     {
-      step: 4,
-      title: 'Application Submission & Processing',
-      duration: '2-6 months',
-      description: 'Our team submits your complete application and manages the entire government review process on your behalf.',
+      number: "04",
+      icon: Send,
+      title: "Application Submission",
+      duration: "1-2 weeks",
+      description: "Complete application package prepared and submitted to immigration authorities with full compliance and tracking.",
       details: [
-        'Government application submission',
-        'Biometric appointment scheduling and coordination',
-        'Regular status updates and progress reporting',
-        'Government communication and follow-up management',
-        'Application review and approval facilitation'
-      ],
-      icon: Shield
+        "Final application review",
+        "Government submission",
+        "Payment of government fees",
+        "Application tracking setup"
+      ]
     },
     {
-      step: 5,
-      title: 'Approval & Residency Card Issuance',
-      duration: '2-4 weeks',
-      description: 'Upon approval, we assist with the final steps to receive your residency card and begin your journey as a legal resident.',
+      number: "05",
+      icon: Clock,
+      title: "Processing & Follow-up",
+      duration: "4-10 months",
+      description: "We monitor your application status, respond to any requests for additional information, and keep you updated throughout.",
       details: [
-        'Approval notification and next steps guidance',
-        'Residency card collection coordination',
-        'Initial residency obligations briefing',
-        'Banking and tax planning introduction',
-        'Ongoing support program enrollment'
-      ],
-      icon: Award
+        "Regular status updates",
+        "Respond to authority requests",
+        "Biometric appointment scheduling",
+        "Interview preparation (if required)"
+      ]
     },
     {
-      step: 6,
-      title: 'Ongoing Support & Citizenship Path',
-      duration: 'Ongoing',
-      description: 'Our relationship continues with ongoing support to maintain your residency and guidance toward eventual citizenship.',
+      number: "06",
+      icon: CheckCircle,
+      title: "Approval & Residency Card",
+      duration: "1-2 weeks",
+      description: "Receive your approval and residency card. We assist with travel arrangements, relocation planning, and integration services.",
       details: [
-        'Annual residency requirement compliance monitoring',
-        'Residency card renewal assistance',
-        'Tax planning and optimization guidance',
-        'Citizenship eligibility assessment and preparation',
-        '24/7 client support and emergency assistance'
-      ],
-      icon: Clock
+        "Approval notification",
+        "Residency card collection",
+        "Relocation assistance",
+        "Integration support"
+      ]
     }
   ];
 
-  const features = [
+  const faqs = [
     {
-      title: 'Transparent Pricing',
-      description: 'No hidden fees. Clear, upfront pricing for all services with detailed breakdown of costs.',
-      icon: DollarSign
+      question: "How long does the entire process take?",
+      answer: "Processing times vary by country and program. Tourist visas can take 2-4 weeks, business visas 4-8 weeks, and Golden Visa programs typically 6-12 months from initial consultation to residency card in hand."
     },
     {
-      title: 'Expert Team',
-      description: 'Licensed immigration consultants and legal experts with 15+ years of experience.',
-      icon: Users
+      question: "What are the typical costs involved?",
+      answer: "Costs include government fees (€5,000-€20,000 depending on country), investment requirements (€250,000-€500,000+ for Golden Visas), legal fees (€5,000-€15,000), and our consultation fees (varies by service). We provide detailed cost breakdowns in your initial consultation."
     },
     {
-      title: 'Proven Track Record',
-      description: '98% success rate with over 1,200 successful Golden Visa applications.',
-      icon: Award
+      question: "Can my family be included in the application?",
+      answer: "Yes! Most Golden Visa and residency programs allow inclusion of spouse, dependent children (usually under 21-26), and sometimes dependent parents. Family members receive the same residency rights."
     },
     {
-      title: 'End-to-End Service',
-      description: 'Complete service from consultation to citizenship, including ongoing support.',
-      icon: Shield
+      question: "Do I need to speak the local language?",
+      answer: "Language requirements vary by program. Golden Visa programs typically have no language requirements for the investment phase. Citizenship applications may require basic language proficiency (usually A2-B1 level)."
+    },
+    {
+      question: "What happens if my application is rejected?",
+      answer: "With our 98% success rate, rejections are rare. We conduct thorough pre-screening to avoid issues. If a rejection occurs, we analyze the reason, recommend next steps, and in most cases can reapply or appeal. Some government fees may be non-refundable."
     }
-  ];
-
-  const guarantees = [
-    'Money-back guarantee if application is rejected due to our error',
-    'Fixed-price service packages with no surprise costs',
-    'Direct access to your dedicated case manager',
-    'Regular progress updates and transparent communication',
-    'Compliance with all regulatory and ethical standards'
   ];
 
   return (
     <>
       {/* Hero Section */}
-      <section className="py-20 lg:py-28 bg-gradient-to-br from-primary-50 to-secondary-50">
-        <div className="container-max section-padding">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-secondary-900 mb-6">
-              Our Proven <span className="text-primary-600">Process</span>
-            </h1>
-            <p className="text-xl text-secondary-600 mb-8 leading-relaxed">
-              A systematic, transparent approach that has successfully guided over 1,200 families 
-              through the Golden Visa process with a 98% success rate.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary-600 mb-2">6</div>
-                <p className="text-secondary-600">Structured Steps</p>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary-600 mb-2">98%</div>
-                <p className="text-secondary-600">Success Rate</p>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary-600 mb-2">1,200+</div>
-                <p className="text-secondary-600">Families Served</p>
-              </div>
-            </div>
-          </div>
+      <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-[#0A1628]">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1920&q=80"
+            alt="Process"
+            className="w-full h-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A1628] via-[#0A1628]/90 to-[#0A1628]/70" />
+        </div>
+
+        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.04]">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="absolute h-px bg-[#FFFEF9] w-full" style={{ top: `${i * 16}%` }} />
+          ))}
+        </div>
+
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#C9A84C]/40 to-transparent" />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 mb-8"
+          >
+            <span className="text-[#C9A84C] text-xs font-semibold tracking-[0.25em] uppercase">
+              Our Process
+            </span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="font-serif text-4xl lg:text-6xl text-white leading-tight mb-6"
+          >
+            <span className="shimmer-text">Simple</span>, Transparent{" "}
+            <br className="hidden sm:block" />
+            Immigration Process
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-lg text-white/60 leading-relaxed max-w-3xl mx-auto"
+          >
+            From initial consultation to citizenship, we guide you through every step with complete transparency. 
+            Our proven 6-step process ensures your success.
+          </motion.p>
         </div>
       </section>
 
       {/* Process Steps */}
-      <section className="py-20">
-        <div className="container-max section-padding">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-secondary-900 mb-4">
-              Step-by-Step Journey
+      <section className="py-28 bg-[#F8F7F4] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: `radial-gradient(circle, #C9A84C 1px, transparent 1px)`, backgroundSize: "36px 36px" }} />
+        
+        <div className="relative max-w-5xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="inline-block text-[#C9A84C] text-xs font-bold tracking-[0.35em] uppercase mb-4">
+              Step by Step
+            </span>
+            <h2 className="font-serif text-4xl lg:text-5xl text-[#0A1628] leading-tight">
+              How We Work
             </h2>
-            <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
-              From initial consultation to citizenship eligibility, we guide you through every milestone
-            </p>
-          </div>
+          </motion.div>
 
-          <div className="space-y-16">
+          <div className="space-y-12">
             {steps.map((step, index) => (
-              <div key={step.step} className="relative">
-                {/* Connector Line */}
-                {index < steps.length - 1 && (
-                  <div className="hidden lg:block absolute left-16 top-32 w-0.5 h-16 bg-primary-200"></div>
-                )}
-
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                  {/* Step Number & Icon */}
-                  <div className="lg:col-span-2 flex lg:flex-col items-center lg:items-start space-x-4 lg:space-x-0 lg:space-y-4">
-                    <div className="w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center text-2xl font-bold flex-shrink-0">
-                      {step.step}
-                    </div>
-                    <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <step.icon className="w-8 h-8 text-primary-600" />
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="relative"
+              >
+                <div className="flex flex-col md:flex-row gap-6 items-start">
+                  {/* Number Badge */}
+                  <div className="flex-shrink-0">
+                    <div className="w-20 h-20 bg-gradient-to-br from-[#C9A84C] to-[#D4B85A] rounded-2xl flex items-center justify-center text-[#0A1628] font-bold text-2xl shadow-lg">
+                      {step.number}
                     </div>
                   </div>
 
                   {/* Content */}
-                  <div className="lg:col-span-10">
-                    <div className="bg-white rounded-xl shadow-md p-8 hover:shadow-lg transition-shadow duration-200">
-                      <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
-                        <h3 className="text-2xl font-bold text-secondary-900 mb-2 md:mb-0">
-                          {step.title}
-                        </h3>
-                        <div className="bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-semibold">
-                          Duration: {step.duration}
+                  <div className="flex-1 bg-[#FFFEF9] border border-gray-100/50 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:shadow-[#C9A84C]/10 transition-all duration-500">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-[#C9A84C]/10 rounded-xl flex items-center justify-center">
+                          <step.icon className="w-6 h-6 text-[#C9A84C]" />
+                        </div>
+                        <div>
+                          <h3 className="text-2xl font-bold text-[#0A1628]">
+                            {step.title}
+                          </h3>
                         </div>
                       </div>
-                      
-                      <p className="text-lg text-secondary-600 leading-relaxed mb-6">
-                        {step.description}
-                      </p>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {step.details.map((detail, detailIndex) => (
-                          <div key={detailIndex} className="flex items-start space-x-3">
-                            <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                            <span className="text-secondary-600 text-sm leading-relaxed">{detail}</span>
-                          </div>
-                        ))}
-                      </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Why Our Process Works */}
-      <section className="py-20 bg-secondary-50">
-        <div className="container-max section-padding">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-secondary-900 mb-4">
-              Why Our Process Works
-            </h2>
-            <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
-              Built on experience, refined through success, and focused on your goals
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-200 text-center">
-                <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <feature.icon className="w-8 h-8 text-primary-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-secondary-900 mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-secondary-600 leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline Visualization */}
-      <section className="py-20">
-        <div className="container-max section-padding">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-secondary-900 mb-4">
-              Typical Timeline
-            </h2>
-            <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
-              Most Golden Visa applications are completed within 6-12 months
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <div className="relative">
-              {/* Timeline Bar */}
-              <div className="absolute top-8 left-0 right-0 h-2 bg-primary-200 rounded-full hidden lg:block">
-                <div className="absolute top-0 left-0 h-2 bg-primary-600 rounded-full w-full"></div>
-              </div>
-
-              {/* Timeline Points */}
-              <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">
-                {steps.map((step) => (
-                  <div key={step.step} className="text-center relative">
-                    <div className="w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold relative z-10">
-                      {step.step}
-                    </div>
-                    <h3 className="font-semibold text-secondary-900 mb-2 text-sm">
-                      {step.title.split('&')[0].trim()}
-                    </h3>
-                    <p className="text-primary-600 text-sm font-semibold">
-                      {step.duration}
+                    <p className="text-gray-600 mb-6 leading-relaxed">
+                      {step.description}
                     </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
 
-          <div className="text-center mt-12">
-            <div className="bg-gold-50 border border-gold-200 rounded-lg p-6 max-w-2xl mx-auto">
-              <h4 className="font-bold text-secondary-900 mb-2">
-                Fast-Track Available
-              </h4>
-              <p className="text-secondary-600">
-                For urgent cases, we offer expedited processing that can reduce timelines by up to 50% 
-                for eligible applicants and participating countries.
-              </p>
-            </div>
+                    <ul className="space-y-2">
+                      {step.details.map((detail, i) => (
+                        <li key={i} className="flex items-start text-sm text-gray-600">
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] mt-1.5 mr-3 flex-shrink-0" />
+                          {detail}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Connector */}
+                {index < steps.length - 1 && (
+                  <div className="hidden md:block absolute left-10 top-20 w-px h-12 bg-gradient-to-b from-[#C9A84C] to-transparent" />
+                )}
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Our Guarantees */}
-      <section className="py-20 bg-secondary-50">
-        <div className="container-max section-padding">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl lg:text-4xl font-bold text-secondary-900 mb-4">
-                Our Commitment to You
-              </h2>
-              <p className="text-xl text-secondary-600">
-                Service guarantees that give you confidence in your investment
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <h3 className="text-2xl font-bold text-secondary-900 mb-6">
-                    Service Guarantees
-                  </h3>
-                  <ul className="space-y-4">
-                    {guarantees.map((guarantee, index) => (
-                      <li key={index} className="flex items-start space-x-3">
-                        <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" />
-                        <span className="text-secondary-600 leading-relaxed">{guarantee}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div>
-                  <h3 className="text-2xl font-bold text-secondary-900 mb-6">
-                    Success Metrics
-                  </h3>
-                  <div className="space-y-6">
-                    <div className="bg-secondary-50 rounded-lg p-4">
-                      <div className="text-3xl font-bold text-primary-600 mb-1">98%</div>
-                      <div className="text-secondary-600">Application Success Rate</div>
-                    </div>
-                    <div className="bg-secondary-50 rounded-lg p-4">
-                      <div className="text-3xl font-bold text-primary-600 mb-1">7.2</div>
-                      <div className="text-secondary-600">Average Months to Approval</div>
-                    </div>
-                    <div className="bg-secondary-50 rounded-lg p-4">
-                      <div className="text-3xl font-bold text-primary-600 mb-1">4.9/5</div>
-                      <div className="text-secondary-600">Client Satisfaction Score</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-primary-900 text-white">
-        <div className="container-max section-padding">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-              Ready to Begin Your Journey?
+      {/* FAQ Section */}
+      <section className="py-28 bg-[#FAF9F6]">
+        <div className="max-w-4xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="inline-block text-[#C9A84C] text-xs font-bold tracking-[0.35em] uppercase mb-4">
+              FAQ
+            </span>
+            <h2 className="font-serif text-4xl lg:text-5xl text-[#0A1628] leading-tight">
+              Common Questions
             </h2>
-            <p className="text-xl mb-8 text-primary-100 leading-relaxed">
-              Start with a free consultation to understand exactly how our process 
-              will work for your specific situation and goals.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
-                to="/contact" 
-                className="bg-gold-500 hover:bg-gold-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 inline-flex items-center justify-center space-x-2"
+          </motion.div>
+
+          <div className="space-y-6">
+            {faqs.map((faq, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-[#F8F7F4] rounded-2xl p-8"
               >
-                <span>Start Free Consultation</span>
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link 
-                to="/services" 
-                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-900 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200"
-              >
-                View All Programs
-              </Link>
-            </div>
+                <h3 className="text-xl font-bold text-[#0A1628] mb-3">
+                  {faq.question}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {faq.answer}
+                </p>
+              </motion.div>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="relative py-28 bg-[#0A1628] overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#FFFEF9] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#C9A84C] rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="relative max-w-3xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="font-serif text-4xl lg:text-5xl text-white mb-6">
+              Ready to Begin Your Immigration Journey?
+            </h2>
+            <p className="text-xl text-white/60 mb-10">
+              Book your consultation today and take the first step toward global mobility
+            </p>
+            <Link 
+              to="/contact" 
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#C9A84C] to-[#D4B85A] text-[#0A1628] font-bold rounded-full hover:shadow-2xl hover:shadow-[#C9A84C]/30 hover:scale-[1.03] transition-all duration-300"
+            >
+              Book Consultation
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </motion.div>
         </div>
       </section>
     </>

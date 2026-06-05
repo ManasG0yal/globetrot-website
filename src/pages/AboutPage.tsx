@@ -1,5 +1,7 @@
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Users, Award, Globe, CheckCircle, ArrowRight } from 'lucide-react';
+import { Users, Award, Globe, CheckCircle, ArrowRight, Target, Heart, Shield } from 'lucide-react';
+import AnimatedCounter from '../components/AnimatedCounter';
 
 const AboutPage = () => {
   const values = [
@@ -27,270 +29,327 @@ const AboutPage = () => {
 
   const team = [
     {
-      name: 'Sarah Al-Mansouri',
-      position: 'Founding Partner & CEO',
-      qualifications: ['ICCRC Licensed', 'LLM Immigration Law', '15+ Years Experience'],
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b098?w=300&h=300&fit=crop&crop=face',
-      bio: 'Former government immigration officer turned entrepreneur, Sarah has helped over 500 families secure their global mobility goals.'
+      name: 'Aman Sharma',
+      position: 'Founder & CEO',
+      qualifications: ['Immigration Expert', 'Founder & CEO', '8+ Years Experience'],
+      image: '/akshat.jpeg',
+      bio: 'Visionary entrepreneur and founder of Globetrot, Aman has helped hundreds of families and investors achieve their global mobility goals across 28+ countries.'
     },
     {
-      name: 'David Chen',
-      position: 'Senior Investment Advisor',
-      qualifications: ['CFA Chartered', 'Real Estate Expert', '12+ Years Experience'],
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face',
-      bio: 'Investment specialist focusing on Golden Visa real estate and financial portfolio optimization for residency programs.'
+      name: 'Akshat Sharma',
+      position: 'Operations Officer',
+      qualifications: ['Operations Expert', 'Client Relations', '8+ Years Experience'],
+      image: '/akshat.jpg',
+      objectPosition: '50% -75px',
+      bio: 'Akshat oversees day-to-day operations ensuring every client case is handled efficiently and with the highest standards of service delivery.'
     },
     {
-      name: 'Maria Rodriguez',
-      position: 'European Programs Director',
-      qualifications: ['EU Law Specialist', 'Multi-lingual', '10+ Years Experience'],
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face',
-      bio: 'Expert in European Golden Visa programs with deep knowledge of Portuguese, Spanish, and Greek immigration systems.'
+      name: 'Sukhwinder',
+      position: 'Technical Officer',
+      qualifications: ['Tech Infrastructure', 'Systems Expert', '8+ Years Experience'],
+      image: '/sukhwinder.jpg',
+      objectPosition: '50% -60px',
+      bio: 'Sukhwinder leads the technical infrastructure of Globetrot, ensuring seamless digital processes and secure handling of all client data.'
     }
   ];
 
   const stats = [
-    { number: '1,200+', label: 'Successful Applications', description: 'Families and individuals served' },
-    { number: '98%', label: 'Success Rate', description: 'Applications approved on first submission' },
-    { number: '15+', label: 'Years Experience', description: 'Combined team expertise' },
-    { number: '10', label: 'Countries', description: 'Golden Visa programs available' }
+    { number: '598', suffix: '+', label: 'Successful Applications' },
+    { number: '98', suffix: '%', label: 'Success Rate' },
+    { number: '8', suffix: '+', label: 'Years Experience' },
+    { number: '28', suffix: '+', label: 'Countries Served' }
+  ];
+
+  const coreValues = [
+    {
+      icon: Target,
+      title: 'Excellence',
+      description: 'We set the highest standards in immigration consulting'
+    },
+    {
+      icon: Heart,
+      title: 'Integrity',
+      description: 'Honest, transparent guidance at every step'
+    },
+    {
+      icon: Shield,
+      title: 'Trust',
+      description: 'Building lasting relationships with our clients'
+    }
   ];
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="py-20 lg:py-28 bg-gradient-to-br from-primary-50 to-secondary-50">
-        <div className="container-max section-padding">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-secondary-900 mb-6">
-              The Firm of <span className="text-primary-600">Global Citizens</span>
-            </h1>
-            <p className="text-xl text-secondary-600 mb-8 leading-relaxed">
-              In an increasingly interconnected world, the ability to traverse borders with ease and security 
-              is more than just a privilege—it's a strategic advantage. At Globetrot Migration Services, we 
-              understand the complexities of global mobility and are dedicated to transforming these challenges 
-              into opportunities for businessmen, entrepreneurs, and skilled professionals.
-            </p>
-            <div className="flex justify-center">
-              <Link to="/contact" className="btn-primary inline-flex items-center space-x-2">
-                <span>Start Your Journey</span>
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </div>
-          </div>
+      {/* Hero Section - Animated */}
+      <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-[#0A1628]">
+        {/* Background */}
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920&q=80"
+            alt="About Us"
+            className="w-full h-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A1628] via-[#0A1628]/90 to-[#0A1628]/70" />
+        </div>
+
+        {/* Animated grid */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.04]">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="absolute h-px bg-[#FFFEF9] w-full" style={{ top: `${i * 16}%` }} />
+          ))}
+        </div>
+
+        {/* Gold accent */}
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#C9A84C]/40 to-transparent" />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 mb-8"
+          >
+            <span className="text-[#C9A84C] text-xs font-semibold tracking-[0.25em] uppercase">
+              About Globetrot
+            </span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="font-serif text-4xl lg:text-6xl text-white leading-tight mb-6"
+          >
+            The Firm of{" "}
+            <span className="shimmer-text">Global Citizens</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-lg text-white/60 mb-10 leading-relaxed max-w-3xl mx-auto"
+          >
+            In an increasingly interconnected world, the ability to traverse borders with ease and security 
+            is more than just a privilege—it's a strategic advantage. We transform immigration challenges 
+            into opportunities for entrepreneurs and professionals worldwide.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.6 }}
+          >
+            <Link 
+              to="/contact" 
+              className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#C9A84C] to-[#D4B85A] text-[#0A1628] font-bold rounded-full hover:shadow-2xl hover:shadow-[#C9A84C]/30 hover:scale-[1.03] transition-all duration-300 text-sm tracking-wide"
+            >
+              Start Your Journey
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+            </Link>
+          </motion.div>
         </div>
       </section>
 
-      {/* Company Stats */}
-      <section className="py-16 bg-white">
-        <div className="container-max section-padding">
+      {/* Company Stats - Animated Counters */}
+      <section className="py-20 bg-[#F8F7F4] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: `radial-gradient(circle, #C9A84C 1px, transparent 1px)`, backgroundSize: "36px 36px" }} />
+        
+        <div className="relative max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl lg:text-4xl font-bold text-primary-600 mb-2">
-                  {stat.number}
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-5xl lg:text-6xl font-bold text-[#C9A84C] mb-2">
+                  <AnimatedCounter target={stat.number} suffix={stat.suffix} />
                 </div>
-                <div className="text-lg font-semibold text-secondary-900 mb-1">
+                <div className="text-lg font-semibold text-[#0A1628]">
                   {stat.label}
                 </div>
-                <div className="text-sm text-secondary-600">
-                  {stat.description}
-                </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Our Story */}
-      <section className="py-20 bg-secondary-50">
-        <div className="container-max section-padding">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold text-secondary-900 mb-4">
-                Our Story
-              </h2>
-              <p className="text-xl text-secondary-600">
-                Born from a vision to democratize global mobility for ambitious individuals
-              </p>
-            </div>
-
-            <div className="prose prose-lg max-w-none text-secondary-700">
-              <p className="text-xl leading-relaxed mb-8">
-                Founded in 2009 in Dubai, Globetrot Migration emerged from a simple yet powerful observation: 
-                talented entrepreneurs and investors were facing increasingly complex barriers to global mobility, 
-                while investment-based residency programs offered unprecedented opportunities for those who understood them.
-              </p>
-
-              <div className="grid md:grid-cols-2 gap-12 my-12">
-                <div>
-                  <h3 className="text-2xl font-bold text-secondary-900 mb-4">Our Mission</h3>
-                  <p className="text-secondary-600 leading-relaxed">
-                    To transform the complex landscape of global immigration into clear, actionable pathways 
-                    for our clients. We believe that in our interconnected world, the freedom to live, work, 
-                    and invest globally should not be limited by bureaucratic complexity or information asymmetry.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-secondary-900 mb-4">Our Vision</h3>
-                  <p className="text-secondary-600 leading-relaxed">
-                    A world where talented individuals can maximize their global potential through strategic 
-                    residency and citizenship planning. We envision a future where geographical boundaries 
-                    enhance rather than limit personal and professional opportunities.
-                  </p>
-                </div>
-              </div>
-
-              <p className="text-lg leading-relaxed">
-                Today, we are proud to have helped over 1,200 families secure their global mobility goals, 
-                with a 98% success rate that speaks to our commitment to excellence, transparency, and 
-                personalized service. Our clients include tech entrepreneurs seeking Silicon Valley access, 
-                investors diversifying their portfolios across continents, and families securing educational 
-                opportunities for the next generation.
-              </p>
-            </div>
           </div>
         </div>
       </section>
 
       {/* Our Values */}
-      <section className="py-20">
-        <div className="container-max section-padding">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-secondary-900 mb-4">
-              Our Core Values
+      <section className="py-28 bg-[#FAF9F6]">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="inline-block text-[#C9A84C] text-xs font-bold tracking-[0.35em] uppercase mb-4">
+              Our Values
+            </span>
+            <h2 className="font-serif text-4xl lg:text-5xl text-[#0A1628] leading-tight mb-4">
+              Why Choose Globetrot Migration
             </h2>
-            <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
-              The principles that guide every client interaction and business decision
-            </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
-              <div key={index} className="text-center group">
-                <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary-600 transition-colors duration-200">
-                  <value.icon className="w-8 h-8 text-primary-600 group-hover:text-white transition-colors duration-200" />
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group bg-[#FFFEF9] border border-gray-100/50 rounded-2xl p-8 hover:border-[#C9A84C]/30 hover:shadow-xl hover:shadow-[#C9A84C]/10 transition-all duration-500"
+              >
+                <div className="w-14 h-14 bg-[#C9A84C]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#C9A84C] transition-colors duration-300">
+                  <value.icon className="w-7 h-7 text-[#C9A84C] group-hover:text-white transition-colors duration-300" />
                 </div>
-                <h3 className="text-xl font-semibold text-secondary-900 mb-3">
+                <h3 className="text-xl font-bold text-[#0A1628] mb-3">
                   {value.title}
                 </h3>
-                <p className="text-secondary-600 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed">
                   {value.description}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20 bg-secondary-50">
-        <div className="container-max section-padding">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-secondary-900 mb-4">
-              Meet Our Expert Team
-            </h2>
-            <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
-              Licensed professionals with decades of combined experience in immigration law and investment advisory
-            </p>
-          </div>
+      {/* Core Values */}
+      <section className="relative py-28 bg-[#0A1628] overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: `radial-gradient(circle, #C9A84C 1px, transparent 1px)`, backgroundSize: "48px 48px" }} />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="relative max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="inline-block text-[#C9A84C] text-xs font-bold tracking-[0.35em] uppercase mb-4">
+              Core Values
+            </span>
+            <h2 className="font-serif text-4xl lg:text-5xl text-white leading-tight">
+              What Drives Us
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {coreValues.map((value, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.15 }}
+                className="text-center"
+              >
+                <div className="w-16 h-16 mx-auto mb-6 bg-[#C9A84C]/10 rounded-full flex items-center justify-center">
+                  <value.icon className="w-8 h-8 text-[#C9A84C]" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-3">
+                  {value.title}
+                </h3>
+                <p className="text-white/60">
+                  {value.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Our Team */}
+      <section className="py-28 bg-[#F8F7F4] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: `radial-gradient(circle, #C9A84C 1px, transparent 1px)`, backgroundSize: "36px 36px" }} />
+        
+        <div className="relative max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="inline-block text-[#C9A84C] text-xs font-bold tracking-[0.35em] uppercase mb-4">
+              Our Team
+            </span>
+            <h2 className="font-serif text-4xl lg:text-5xl text-[#0A1628] leading-tight mb-4">
+              Meet the Experts
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Our team of licensed immigration consultants brings decades of combined experience
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
             {team.map((member, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-200">
-                <div className="p-8">
-                  <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden">
-                    <img 
-                      src={member.image} 
-                      alt={member.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <h3 className="text-xl font-bold text-secondary-900 text-center mb-2">
-                    {member.name}
-                  </h3>
-                  <p className="text-primary-600 font-semibold text-center mb-4">
-                    {member.position}
-                  </p>
-                  <div className="flex flex-wrap justify-center gap-2 mb-4">
-                    {member.qualifications.map((qual, qualIndex) => (
-                      <span 
-                        key={qualIndex}
-                        className="text-xs bg-secondary-100 text-secondary-700 px-3 py-1 rounded-full"
-                      >
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.15 }}
+                className="group bg-[#FFFEF9] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:shadow-[#C9A84C]/10 transition-all duration-500"
+              >
+                <div className="relative h-80 overflow-hidden">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    style={{ objectPosition: (member as any).objectPosition || '50% 20%' }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/70 to-transparent" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-[#0A1628] mb-1">{member.name}</h3>
+                  <p className="text-[#C9A84C] font-semibold mb-4">{member.position}</p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {member.qualifications.map((qual, i) => (
+                      <span key={i} className="text-xs px-2.5 py-1 bg-[#C9A84C]/10 text-[#0A1628] rounded-full font-medium">
                         {qual}
                       </span>
                     ))}
                   </div>
-                  <p className="text-secondary-600 text-center text-sm leading-relaxed">
-                    {member.bio}
-                  </p>
+                  <p className="text-gray-600 text-sm leading-relaxed">{member.bio}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Certifications & Partnerships */}
-      <section className="py-20">
-        <div className="container-max section-padding">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-secondary-900 mb-4">
-              Certifications & Partnerships
-            </h2>
-            <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
-              Recognized by leading industry bodies and government agencies worldwide
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
-            <div className="text-center p-6 bg-secondary-50 rounded-lg">
-              <div className="text-3xl mb-3">🏛️</div>
-              <p className="text-sm font-semibold text-secondary-700">ICCRC Registered</p>
-            </div>
-            <div className="text-center p-6 bg-secondary-50 rounded-lg">
-              <div className="text-3xl mb-3">🇪🇺</div>
-              <p className="text-sm font-semibold text-secondary-700">EU Legal Partners</p>
-            </div>
-            <div className="text-center p-6 bg-secondary-50 rounded-lg">
-              <div className="text-3xl mb-3">🏅</div>
-              <p className="text-sm font-semibold text-secondary-700">CFA Certified</p>
-            </div>
-            <div className="text-center p-6 bg-secondary-50 rounded-lg">
-              <div className="text-3xl mb-3">⚖️</div>
-              <p className="text-sm font-semibold text-secondary-700">Legal Compliance</p>
-            </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary-900 text-white">
-        <div className="container-max section-padding">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-              Ready to Start Your Global Journey?
+      <section className="relative py-28 bg-[#0A1628] overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#FFFEF9] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#C9A84C] rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="relative max-w-3xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="font-serif text-4xl lg:text-5xl text-white mb-6">
+              Ready to Start Your Journey?
             </h2>
-            <p className="text-xl mb-8 text-primary-100 leading-relaxed">
-              Join our community of global citizens who have successfully secured their international mobility goals.
+            <p className="text-xl text-white/60 mb-10">
+              Book a consultation with our immigration experts today
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
-                to="/contact" 
-                className="bg-gold-500 hover:bg-gold-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 inline-flex items-center justify-center space-x-2"
-              >
-                <span>Schedule Consultation</span>
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link 
-                to="/services" 
-                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-900 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200"
-              >
-                Explore Programs
-              </Link>
-            </div>
-          </div>
+            <Link 
+              to="/contact" 
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#C9A84C] to-[#D4B85A] text-[#0A1628] font-bold rounded-full hover:shadow-2xl hover:shadow-[#C9A84C]/30 hover:scale-[1.03] transition-all duration-300"
+            >
+              Book Consultation
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </motion.div>
         </div>
       </section>
     </>

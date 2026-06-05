@@ -1,16 +1,17 @@
 import { useParams, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle, Clock, Users, Globe, DollarSign, Home, Briefcase, TrendingUp } from 'lucide-react';
 
 const CountryPage = () => {
   const { countryCode } = useParams<{ countryCode: string }>();
 
-  // Country data - in a real app this would come from an API or database
   const countryData: { [key: string]: any } = {
     portugal: {
       name: 'Portugal',
       flag: '🇵🇹',
       title: 'Portugal Golden Visa Program',
       hero: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1200&h=600&fit=crop',
+      funFact: '300 days of sunshine per year',
       overview: 'Portugal\'s Golden Visa program is one of Europe\'s most successful residency-by-investment programs, offering a pathway to EU citizenship through strategic investments.',
       minInvestment: '€280,000',
       timeframe: '2-3 months',
@@ -56,348 +57,280 @@ const CountryPage = () => {
         'Investment in qualifying project',
         'Spend 7 days per year in Portugal',
         'Maintain investment for minimum 5 years'
+      ]
+    },
+    spain: {
+      name: 'Spain',
+      flag: '🇪🇸',
+      title: 'Spain Golden Visa Program',
+      hero: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=1200&h=600&fit=crop',
+      funFact: 'World\'s healthiest country for expats',
+      overview: 'Spain\'s Golden Visa offers residency through real estate investment with access to the entire Schengen Area and a path to Spanish citizenship.',
+      minInvestment: '€500,000',
+      timeframe: '2-4 months',
+      citizenship: '10 years',
+      benefits: [
+        'Schengen Area access',
+        'High quality of life',
+        'World-class healthcare system',
+        'Excellent education opportunities',
+        'No minimum stay requirement',
+        'Family inclusion'
       ],
-      process: [
+      investmentOptions: [
         {
-          step: 1,
-          title: 'Initial Assessment',
-          description: 'Free consultation to assess eligibility and investment options',
-          duration: '1 week'
+          type: 'Real Estate',
+          amount: '€500,000',
+          description: 'Purchase of residential or commercial property',
+          icon: Home
         },
         {
-          step: 2,
-          title: 'Document Preparation',
-          description: 'Gather and prepare all required documentation with legal review',
-          duration: '2-4 weeks'
+          type: 'Government Bonds',
+          amount: '€2,000,000',
+          description: 'Investment in Spanish government bonds',
+          icon: TrendingUp
         },
         {
-          step: 3,
-          title: 'Investment Selection',
-          description: 'Choose and secure your qualifying investment opportunity',
-          duration: '2-6 weeks'
-        },
-        {
-          step: 4,
-          title: 'Application Submission',
-          description: 'Submit application to SEF (Portuguese Immigration Service)',
-          duration: '2-3 months'
-        },
-        {
-          step: 5,
-          title: 'Residency Card Issuance',
-          description: 'Receive your Portuguese residency card and begin your journey',
-          duration: '1-2 weeks'
+          type: 'Business Investment',
+          amount: '€1,000,000',
+          description: 'Investment in Spanish companies',
+          icon: Briefcase
         }
       ],
-      lifestyle: {
-        cost: 'Low to Moderate',
-        climate: 'Mediterranean',
-        language: 'Portuguese (English widely spoken)',
-        education: 'Excellent public and private schools',
-        healthcare: 'Universal healthcare system, ranked 12th globally'
-      }
-    }
+      requirements: [
+        'Clean criminal record',
+        'Proof of financial means',
+        'Health insurance',
+        'Investment documentation',
+        'No minimum stay requirement',
+        'Maintain investment for 5 years'
+      ]
+    },
+    // Add more countries as needed...
   };
 
-  // Default data for countries not fully configured
-  const defaultCountryData = {
-    name: countryCode ? (countryCode.charAt(0).toUpperCase() + countryCode.slice(1)) : 'Country',
-    flag: '🌍',
-    title: `${countryCode ? (countryCode.charAt(0).toUpperCase() + countryCode.slice(1)) : 'Country'} Golden Visa Program`,
-    hero: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=600&fit=crop',
-    overview: 'Premium investment-based residency program offering pathway to citizenship through strategic investments.',
-    minInvestment: 'Contact for details',
-    timeframe: '3-6 months',
-    citizenship: '5-10 years',
-    benefits: [
-      'Residency and eventual citizenship pathway',
-      'Visa-free travel benefits',
-      'Access to local healthcare and education',
-      'Family inclusion options',
-      'Investment opportunities',
-      'Global mobility enhancement'
-    ],
-    investmentOptions: [
-      {
-        type: 'Real Estate Investment',
-        amount: 'Varies',
-        description: 'Investment in qualifying real estate properties',
-        icon: Home
-      },
-      {
-        type: 'Government Bonds',
-        amount: 'Varies',
-        description: 'Investment in government-approved bonds or funds',
-        icon: DollarSign
-      }
-    ],
-    requirements: [
-      'Clean criminal background check',
-      'Proof of investment funds',
-      'Health insurance coverage',
-      'Qualifying investment',
-      'Meet residency requirements',
-      'Maintain investment period'
-    ]
-  };
-
-  const country = countryData[countryCode || ''] || defaultCountryData;
+  const country = countryData[countryCode || ''] || countryData.portugal;
 
   return (
     <>
       {/* Hero Section */}
-      <section 
-        className="relative py-32 lg:py-40 bg-cover bg-center"
-        style={{ backgroundImage: `url(${country.hero})` }}
-      >
-        <div className="absolute inset-0 bg-black/50"></div>
-        <div className="relative container-max section-padding">
-          <div className="max-w-4xl text-white">
-            <div className="flex items-center space-x-4 mb-6">
-              <span className="text-6xl">{country.flag}</span>
-              <div>
-                <h1 className="text-4xl lg:text-6xl font-bold mb-4">
-                  {country.name}
-                </h1>
-                <p className="text-xl lg:text-2xl text-gray-200">
-                  Golden Visa Program
-                </p>
+      <section className="relative min-h-[70vh] flex items-center overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src={country.hero}
+            alt={country.name}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A1628]/95 via-[#0A1628]/80 to-[#0A1628]/60" />
+        </div>
+
+        {/* Grid pattern */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.04]">
+          {[...Array(8)].map((_, i) => (
+            <div key={i} className="absolute h-px bg-[#FFFEF9] w-full" style={{ top: `${i * 14}%` }} />
+          ))}
+        </div>
+
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#C9A84C]/40 to-transparent" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 mb-8">
+              <span className="text-4xl">{country.flag}</span>
+              <span className="text-[#C9A84C] text-xs font-semibold tracking-[0.25em] uppercase">
+                {country.name}
+              </span>
+            </div>
+
+            <h1 className="font-serif text-5xl lg:text-7xl text-white leading-tight mb-6 max-w-3xl">
+              <span className="shimmer-text">{country.name}</span> Golden Visa
+            </h1>
+
+            <p className="text-lg text-white/60 mb-8 max-w-2xl leading-relaxed">
+              {country.funFact}
+            </p>
+
+            <div className="flex flex-wrap gap-6 mb-10">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <DollarSign className="w-6 h-6 text-[#C9A84C]" />
+                  <div>
+                    <div className="text-white/60 text-xs font-medium mb-1">From</div>
+                    <div className="text-white font-bold text-xl">{country.minInvestment}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <Clock className="w-6 h-6 text-[#C9A84C]" />
+                  <div>
+                    <div className="text-white/60 text-xs font-medium mb-1">Timeframe</div>
+                    <div className="text-white font-bold text-xl">{country.timeframe}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <Users className="w-6 h-6 text-[#C9A84C]" />
+                  <div>
+                    <div className="text-white/60 text-xs font-medium mb-1">Citizenship</div>
+                    <div className="text-white font-bold text-xl">{country.citizenship}</div>
+                  </div>
+                </div>
               </div>
             </div>
-            
-            {/* Key Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-2xl">
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <div className="flex items-center space-x-2 mb-2">
-                  <DollarSign className="w-5 h-5 text-gold-400" />
-                  <span className="text-gold-400 font-semibold">Investment</span>
-                </div>
-                <div className="text-2xl font-bold">{country.minInvestment}</div>
-              </div>
-              
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <div className="flex items-center space-x-2 mb-2">
-                  <Clock className="w-5 h-5 text-gold-400" />
-                  <span className="text-gold-400 font-semibold">Processing</span>
-                </div>
-                <div className="text-2xl font-bold">{country.timeframe}</div>
-              </div>
-              
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <div className="flex items-center space-x-2 mb-2">
-                  <Users className="w-5 h-5 text-gold-400" />
-                  <span className="text-gold-400 font-semibold">Citizenship</span>
-                </div>
-                <div className="text-2xl font-bold">{country.citizenship}</div>
-              </div>
-            </div>
-          </div>
+
+            <Link
+              to="/contact"
+              className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#C9A84C] to-[#D4B85A] text-[#0A1628] font-bold rounded-full hover:shadow-2xl hover:shadow-[#C9A84C]/30 hover:scale-[1.03] transition-all duration-300"
+            >
+              Get Started
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+            </Link>
+          </motion.div>
         </div>
       </section>
 
       {/* Overview */}
-      <section className="py-20">
-        <div className="container-max section-padding">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl lg:text-4xl font-bold text-secondary-900 mb-6">
-                Program Overview
-              </h2>
-              <p className="text-lg text-secondary-600 leading-relaxed mb-8">
-                {country.overview}
-              </p>
-              
-              <div className="flex space-x-4">
-                <Link to="/contact" className="btn-primary inline-flex items-center space-x-2">
-                  <span>Get Started</span>
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-                <Link to="/services" className="btn-secondary">
-                  Compare Programs
-                </Link>
-              </div>
-            </div>
-            
-            <div className="bg-secondary-50 rounded-xl p-8">
-              <h3 className="text-2xl font-bold text-secondary-900 mb-6">Key Benefits</h3>
-              <ul className="space-y-4">
-                {country.benefits.map((benefit: string, index: number) => (
-                  <li key={index} className="flex items-start space-x-3">
-                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" />
-                    <span className="text-secondary-600 leading-relaxed">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+      <section className="py-20 bg-[#FAF9F6]">
+        <div className="max-w-4xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="font-serif text-4xl text-[#0A1628] mb-6">Program Overview</h2>
+            <p className="text-lg text-gray-600 leading-relaxed">{country.overview}</p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Investment Options */}
-      <section className="py-20 bg-secondary-50">
-        <div className="container-max section-padding">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-secondary-900 mb-4">
-              Investment Options
-            </h2>
-            <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
-              Multiple pathways to meet the investment requirements for your {country.name} residency
-            </p>
-          </div>
+      {/* Benefits */}
+      <section className="py-20 bg-[#F8F7F4] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: `radial-gradient(circle, #C9A84C 1px, transparent 1px)`, backgroundSize: "36px 36px" }} />
+        
+        <div className="relative max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="font-serif text-4xl text-[#0A1628] mb-4">Key Benefits</h2>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {country.investmentOptions.map((option: any, index: number) => (
-              <div key={index} className="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-all duration-200">
-                <div className="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
-                  <option.icon className="w-8 h-8 text-primary-600" />
-                </div>
-                
-                <h3 className="text-xl font-bold text-secondary-900 mb-2">
-                  {option.type}
-                </h3>
-                
-                <div className="text-2xl font-bold text-primary-600 mb-4">
-                  {option.amount}
-                </div>
-                
-                <p className="text-secondary-600 leading-relaxed">
-                  {option.description}
-                </p>
-              </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {country.benefits.map((benefit: string, index: number) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-[#FFFEF9] border border-gray-100/50 rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow duration-300"
+              >
+                <CheckCircle className="w-8 h-8 text-[#C9A84C] mb-4" />
+                <p className="text-gray-700 leading-relaxed">{benefit}</p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Requirements & Process */}
-      <section className="py-20">
-        <div className="container-max section-padding">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            {/* Requirements */}
-            <div>
-              <h2 className="text-3xl font-bold text-secondary-900 mb-8">
-                Requirements
-              </h2>
-              
-              <div className="space-y-4">
-                {country.requirements.map((requirement: string, index: number) => (
-                  <div key={index} className="flex items-start space-x-3 p-4 bg-secondary-50 rounded-lg">
-                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" />
-                    <span className="text-secondary-700">{requirement}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+      {/* Investment Options */}
+      <section className="py-20 bg-[#FAF9F6]">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="font-serif text-4xl text-[#0A1628] mb-4">Investment Options</h2>
+          </motion.div>
 
-            {/* Process */}
-            <div>
-              <h2 className="text-3xl font-bold text-secondary-900 mb-8">
-                Application Process
-              </h2>
-              
-              {country.process ? (
-                <div className="space-y-6">
-                  {country.process.map((step: any, index: number) => (
-                    <div key={index} className="flex space-x-4">
-                      <div className="w-10 h-10 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
-                        {step.step}
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-secondary-900 mb-2">
-                          {step.title}
-                        </h3>
-                        <p className="text-secondary-600 mb-2">
-                          {step.description}
-                        </p>
-                        <div className="text-sm text-primary-600 font-medium">
-                          Duration: {step.duration}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+          <div className="grid md:grid-cols-2 gap-8">
+            {country.investmentOptions.map((option: any, index: number) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.15 }}
+                className="bg-[#F8F7F4] rounded-2xl p-8 hover:shadow-xl hover:shadow-[#C9A84C]/10 transition-all duration-500"
+              >
+                <div className="w-14 h-14 bg-[#C9A84C]/10 rounded-xl flex items-center justify-center mb-6">
+                  <option.icon className="w-7 h-7 text-[#C9A84C]" />
                 </div>
-              ) : (
-                <div className="bg-secondary-50 rounded-lg p-6">
-                  <p className="text-secondary-600 text-center">
-                    Contact our experts for detailed process information and timeline specific to your situation.
-                  </p>
-                </div>
-              )}
-            </div>
+                <h3 className="text-2xl font-bold text-[#0A1628] mb-2">{option.type}</h3>
+                <div className="text-[#C9A84C] font-bold text-xl mb-4">{option.amount}</div>
+                <p className="text-gray-600 leading-relaxed">{option.description}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Lifestyle Info (if available) */}
-      {country.lifestyle && (
-        <section className="py-20 bg-secondary-50">
-          <div className="container-max section-padding">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold text-secondary-900 mb-4">
-                Living in {country.name}
-              </h2>
-              <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
-                Discover what makes {country.name} an attractive destination for global citizens
-              </p>
-            </div>
+      {/* Requirements */}
+      <section className="py-20 bg-[#0A1628] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: `radial-gradient(circle, #C9A84C 1px, transparent 1px)`, backgroundSize: "48px 48px" }} />
+        
+        <div className="relative max-w-4xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="font-serif text-4xl text-white mb-4">Requirements</h2>
+          </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-white rounded-xl p-6 shadow-md">
-                <h3 className="text-lg font-semibold text-secondary-900 mb-2">Cost of Living</h3>
-                <p className="text-secondary-600">{country.lifestyle.cost}</p>
-              </div>
-              
-              <div className="bg-white rounded-xl p-6 shadow-md">
-                <h3 className="text-lg font-semibold text-secondary-900 mb-2">Climate</h3>
-                <p className="text-secondary-600">{country.lifestyle.climate}</p>
-              </div>
-              
-              <div className="bg-white rounded-xl p-6 shadow-md">
-                <h3 className="text-lg font-semibold text-secondary-900 mb-2">Language</h3>
-                <p className="text-secondary-600">{country.lifestyle.language}</p>
-              </div>
-              
-              <div className="bg-white rounded-xl p-6 shadow-md">
-                <h3 className="text-lg font-semibold text-secondary-900 mb-2">Education</h3>
-                <p className="text-secondary-600">{country.lifestyle.education}</p>
-              </div>
-              
-              <div className="bg-white rounded-xl p-6 shadow-md md:col-span-2">
-                <h3 className="text-lg font-semibold text-secondary-900 mb-2">Healthcare</h3>
-                <p className="text-secondary-600">{country.lifestyle.healthcare}</p>
-              </div>
-            </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            {country.requirements.map((req: string, index: number) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="flex items-start gap-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4"
+              >
+                <CheckCircle className="w-5 h-5 text-[#C9A84C] flex-shrink-0 mt-0.5" />
+                <span className="text-white/80">{req}</span>
+              </motion.div>
+            ))}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-primary-900 text-white">
-        <div className="container-max section-padding">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-6">
+      {/* CTA */}
+      <section className="py-28 bg-[#F8F7F4]">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="font-serif text-4xl lg:text-5xl text-[#0A1628] mb-6">
               Ready to Start Your {country.name} Journey?
             </h2>
-            <p className="text-xl mb-8 text-primary-100 leading-relaxed">
-              Get expert guidance on the {country.name} Golden Visa program. 
-              Book your free consultation today to assess your eligibility.
+            <p className="text-xl text-gray-600 mb-10">
+              Book a consultation to discuss your eligibility and investment options
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
-                to="/contact" 
-                className="bg-gold-500 hover:bg-gold-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 inline-flex items-center justify-center space-x-2"
-              >
-                <span>Book Free Consultation</span>
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link 
-                to="/services" 
-                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-900 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200"
-              >
-                Compare All Programs
-              </Link>
-            </div>
-          </div>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#C9A84C] to-[#D4B85A] text-[#0A1628] font-bold rounded-full hover:shadow-2xl hover:shadow-[#C9A84C]/30 hover:scale-[1.03] transition-all duration-300"
+            >
+              Book Consultation
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </motion.div>
         </div>
       </section>
     </>

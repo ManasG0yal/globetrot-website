@@ -1,6 +1,37 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from 'lucide-react';
-import emailjs from '@emailjs/browser';
+import { motion } from 'framer-motion';
+import { Mail, Phone, MapPin, Clock, Send, CheckCircle, AlertTriangle } from 'lucide-react';
+
+const COUNTRY_CODES = [
+  { code: 'AE', dial: '+971', flag: '🇦🇪', name: 'UAE' },
+  { code: 'IN', dial: '+91',  flag: '🇮🇳', name: 'India' },
+  { code: 'PK', dial: '+92',  flag: '🇵🇰', name: 'Pakistan' },
+  { code: 'GB', dial: '+44',  flag: '🇬🇧', name: 'UK' },
+  { code: 'US', dial: '+1',   flag: '🇺🇸', name: 'USA' },
+  { code: 'CA', dial: '+1',   flag: '🇨🇦', name: 'Canada' },
+  { code: 'AU', dial: '+61',  flag: '🇦🇺', name: 'Australia' },
+  { code: 'NZ', dial: '+64',  flag: '🇳🇿', name: 'New Zealand' },
+  { code: 'PT', dial: '+351', flag: '🇵🇹', name: 'Portugal' },
+  { code: 'ES', dial: '+34',  flag: '🇪🇸', name: 'Spain' },
+  { code: 'GR', dial: '+30',  flag: '🇬🇷', name: 'Greece' },
+  { code: 'CY', dial: '+357', flag: '🇨🇾', name: 'Cyprus' },
+  { code: 'MT', dial: '+356', flag: '🇲🇹', name: 'Malta' },
+  { code: 'SG', dial: '+65',  flag: '🇸🇬', name: 'Singapore' },
+  { code: 'SA', dial: '+966', flag: '🇸🇦', name: 'Saudi Arabia' },
+  { code: 'QA', dial: '+974', flag: '🇶🇦', name: 'Qatar' },
+  { code: 'KW', dial: '+965', flag: '🇰🇼', name: 'Kuwait' },
+  { code: 'BH', dial: '+973', flag: '🇧🇭', name: 'Bahrain' },
+  { code: 'OM', dial: '+968', flag: '🇴🇲', name: 'Oman' },
+  { code: 'DE', dial: '+49',  flag: '🇩🇪', name: 'Germany' },
+  { code: 'FR', dial: '+33',  flag: '🇫🇷', name: 'France' },
+  { code: 'ZA', dial: '+27',  flag: '🇿🇦', name: 'South Africa' },
+  { code: 'NG', dial: '+234', flag: '🇳🇬', name: 'Nigeria' },
+  { code: 'EG', dial: '+20',  flag: '🇪🇬', name: 'Egypt' },
+  { code: 'BD', dial: '+880', flag: '🇧🇩', name: 'Bangladesh' },
+  { code: 'LK', dial: '+94',  flag: '🇱🇰', name: 'Sri Lanka' },
+  { code: 'NP', dial: '+977', flag: '🇳🇵', name: 'Nepal' },
+  { code: 'PH', dial: '+63',  flag: '🇵🇭', name: 'Philippines' },
+];
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -9,52 +40,30 @@ const ContactPage = () => {
     email: '',
     phone: '',
     country: '',
-    investmentAmount: '',
-    preferredCountries: [],
+    preferredCountries: '',
     message: '',
     howDidYouHear: ''
   });
 
+  const [dialCode, setDialCode] = useState('+971');
+  const [emailTouched, setEmailTouched] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
 
-  const investmentRanges = [
-    '€250,000 - €500,000',
-    '€500,000 - €1,000,000',
-    '€1,000,000 - €2,000,000',
-    '€2,000,000 - €5,000,000',
-    '€5,000,000+'
-  ];
-
-  const countries = [
-    'Portugal', 'Spain', 'Greece', 'Cyprus', 'Malta', 
-    'United Kingdom', 'New Zealand', 'Australia', 'Canada', 'Singapore'
-  ];
+  const isValidEmail = (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSending(true);
 
     try {
-      // EmailJS configuration - CLIENT NEEDS TO SET THESE UP
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID';
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, phone: `${dialCode} ${formData.phone}` }),
+      });
 
-      const templateParams = {
-        to_email: 'info@globetrotmigration.com', // Client's email
-        from_name: `${formData.firstName} ${formData.lastName}`,
-        from_email: formData.email,
-        phone: formData.phone,
-        country: formData.country,
-        investment_amount: formData.investmentAmount,
-        preferred_countries: formData.preferredCountries.join(', '),
-        how_heard: formData.howDidYouHear,
-        message: formData.message,
-        submission_date: new Date().toLocaleString()
-      };
-
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      if (!res.ok) throw new Error('Server error');
       setSubmitted(true);
     } catch (error) {
       console.error('Email send failed:', error);
@@ -69,34 +78,30 @@ const ContactPage = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleCountryChange = (country: string) => {
-    setFormData(prev => ({
-      ...prev,
-      preferredCountries: prev.preferredCountries.includes(country as never)
-        ? prev.preferredCountries.filter((c: string) => c !== country)
-        : [...prev.preferredCountries, country as never]
-    }));
-  };
-
   if (submitted) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-secondary-50">
-        <div className="max-w-md mx-auto bg-white rounded-xl shadow-lg p-8 text-center">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle className="w-8 h-8 text-green-600" />
+      <div className="min-h-screen flex items-center justify-center bg-[#0A1628]">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-md mx-auto bg-[#FFFEF9] rounded-2xl shadow-2xl p-10 text-center"
+        >
+          <div className="w-20 h-20 bg-[#C9A84C]/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle className="w-10 h-10 text-[#C9A84C]" />
           </div>
-          <h2 className="text-2xl font-bold text-secondary-900 mb-4">Thank You!</h2>
-          <p className="text-secondary-600 mb-6 leading-relaxed">
+          <h2 className="text-3xl font-bold text-[#0A1628] mb-4">Thank You!</h2>
+          <p className="text-gray-600 mb-8 leading-relaxed">
             Your consultation request has been received. One of our immigration experts 
-            will contact you within 24 hours to discuss your Golden Visa options.
+            will contact you within 24 hours to discuss your options.
           </p>
           <button 
             onClick={() => setSubmitted(false)}
-            className="btn-primary w-full"
+            className="w-full px-8 py-4 bg-gradient-to-r from-[#C9A84C] to-[#D4B85A] text-[#0A1628] font-bold rounded-full hover:shadow-xl transition-all duration-300"
           >
             Submit Another Request
           </button>
-        </div>
+        </motion.div>
       </div>
     );
   }
@@ -104,311 +109,279 @@ const ContactPage = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="py-20 lg:py-28 bg-gradient-to-br from-primary-50 to-secondary-50">
-        <div className="container-max section-padding">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-secondary-900 mb-6">
-              Get Your Free <span className="text-primary-600">Consultation</span>
-            </h1>
-            <p className="text-xl text-secondary-600 mb-8 leading-relaxed">
-              Speak with our licensed immigration experts to discover which Golden Visa program 
-              is the perfect fit for your investment goals and lifestyle preferences.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
-              <div className="text-center">
-                <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <CheckCircle className="w-6 h-6 text-primary-600" />
-                </div>
-                <p className="font-semibold text-secondary-900">Free Assessment</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Clock className="w-6 h-6 text-primary-600" />
-                </div>
-                <p className="font-semibold text-secondary-900">30-Min Call</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Mail className="w-6 h-6 text-primary-600" />
-                </div>
-                <p className="font-semibold text-secondary-900">24h Response</p>
-              </div>
-            </div>
-          </div>
+      <section className="relative min-h-[50vh] flex items-center overflow-hidden bg-[#0A1628]">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920&q=80"
+            alt="Contact"
+            className="w-full h-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A1628] via-[#0A1628]/90 to-[#0A1628]/70" />
+        </div>
+
+        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.04]">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="absolute h-px bg-[#FFFEF9] w-full" style={{ top: `${i * 16}%` }} />
+          ))}
+        </div>
+
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#C9A84C]/40 to-transparent" />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center py-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 mb-8"
+          >
+            <span className="text-[#C9A84C] text-xs font-semibold tracking-[0.25em] uppercase">
+              Get in Touch
+            </span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="font-serif text-4xl lg:text-6xl text-white leading-tight mb-6"
+          >
+            Book Your <span className="shimmer-text">Consultation</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-lg text-white/60 leading-relaxed max-w-3xl mx-auto"
+          >
+            Schedule a consultation with our licensed immigration experts. We'll assess your eligibility 
+            and recommend the best pathway for your goals.
+          </motion.p>
         </div>
       </section>
 
-      <section className="py-20">
-        <div className="container-max section-padding">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
-            {/* Contact Form */}
-            <div className="lg:col-span-2">
-              <div className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-secondary-900 mb-6">
-                  Book Your Free Consultation
-                </h2>
-                
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Personal Information */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-secondary-700 mb-2">
-                        First Name *
-                      </label>
-                      <input
-                        type="text"
-                        name="firstName"
-                        required
-                        value={formData.firstName}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
-                        placeholder="Enter your first name"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-secondary-700 mb-2">
-                        Last Name *
-                      </label>
-                      <input
-                        type="text"
-                        name="lastName"
-                        required
-                        value={formData.lastName}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
-                        placeholder="Enter your last name"
-                      />
-                    </div>
-                  </div>
+      {/* Contact Section */}
+      <section className="py-28 bg-[#F8F7F4] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: `radial-gradient(circle, #C9A84C 1px, transparent 1px)`, backgroundSize: "36px 36px" }} />
+        
+        <div className="relative max-w-6xl mx-auto px-6">
+          <div className="grid lg:grid-cols-3 gap-12">
+            {/* Contact Info */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-1"
+            >
+              <h2 className="font-serif text-3xl text-[#0A1628] mb-8">
+                Contact Information
+              </h2>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-secondary-700 mb-2">
-                        Email Address *
-                      </label>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-[#C9A84C]/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-6 h-6 text-[#C9A84C]" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-[#0A1628] mb-1">Office Address</h3>
+                    <p className="text-gray-600 text-sm">
+                      PO5 Bays Water Building Number 7<br />
+                      Business Bay, Dubai, UAE
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-[#C9A84C]/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-6 h-6 text-[#C9A84C]" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-[#0A1628] mb-1">Phone</h3>
+                    <a href="tel:+971048323705" className="text-gray-600 text-sm hover:text-[#C9A84C] transition-colors">
+                      +971 048323705
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-[#C9A84C]/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-6 h-6 text-[#C9A84C]" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-[#0A1628] mb-1">Email</h3>
+                    <a href="mailto:info@globetrotmigration.com" className="text-gray-600 text-sm hover:text-[#C9A84C] transition-colors">
+                      info@globetrotmigration.com
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-[#C9A84C]/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Clock className="w-6 h-6 text-[#C9A84C]" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-[#0A1628] mb-1">Business Hours</h3>
+                    <p className="text-gray-600 text-sm">
+                      Sunday - Thursday: 9AM - 6PM<br />
+                      Friday - Saturday: Closed
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Contact Form */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-2"
+            >
+              <form onSubmit={handleSubmit} className="bg-[#FFFEF9] rounded-2xl p-8 shadow-lg">
+                <div className="grid md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-[#0A1628] mb-2">
+                      First Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-[#0A1628] mb-2">
+                      Last Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6 mb-6">
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-semibold text-[#0A1628] mb-2">
+                      Email *
+                    </label>
+                    <div className="relative">
                       <input
                         type="email"
                         name="email"
-                        required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
-                        placeholder="Enter your email"
+                        onBlur={() => setEmailTouched(true)}
+                        required
+                        placeholder="you@example.com"
+                        className={`w-full px-4 py-3 pr-10 border rounded-xl focus:outline-none transition-colors ${
+                          emailTouched && formData.email && !isValidEmail(formData.email)
+                            ? 'border-amber-400 bg-amber-50 focus:border-amber-500'
+                            : 'border-gray-200 focus:border-[#C9A84C]'
+                        }`}
                       />
+                      <AlertTriangle className={`absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 transition-opacity ${
+                        emailTouched && formData.email && !isValidEmail(formData.email)
+                          ? 'opacity-100 text-amber-500'
+                          : 'opacity-0'
+                      }`} />
                     </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-secondary-700 mb-2">
-                        Phone Number
-                      </label>
+                    {emailTouched && formData.email && !isValidEmail(formData.email) && (
+                      <p className="mt-1.5 text-xs text-amber-600 flex items-center gap-1">
+                        <AlertTriangle className="w-3 h-3" /> Please enter a valid email address
+                      </p>
+                    )}
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-semibold text-[#0A1628] mb-2">
+                      Phone *
+                    </label>
+                    <div className="flex gap-2 w-full">
+                      <select
+                        value={dialCode}
+                        onChange={e => setDialCode(e.target.value)}
+                        className="shrink-0 w-48 px-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors bg-white text-sm cursor-pointer"
+                      >
+                        {COUNTRY_CODES.map(c => (
+                          <option key={c.code + c.dial} value={c.dial}>
+                            {c.flag} {c.name} ({c.dial})
+                          </option>
+                        ))}
+                      </select>
                       <input
                         type="tel"
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
-                        placeholder="+1 (555) 123-4567"
+                        required
+                        placeholder="50 123 4567"
+                        className="flex-1 min-w-0 px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors"
                       />
                     </div>
                   </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-secondary-700 mb-2">
-                      Current Country of Residence
-                    </label>
-                    <input
-                      type="text"
-                      name="country"
-                      value={formData.country}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
-                      placeholder="Enter your country"
-                    />
-                  </div>
-
-                  {/* Investment Information */}
-                  <div>
-                    <label className="block text-sm font-semibold text-secondary-700 mb-2">
-                      Investment Budget Range
-                    </label>
-                    <select
-                      name="investmentAmount"
-                      value={formData.investmentAmount}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
-                    >
-                      <option value="">Select investment range</option>
-                      {investmentRanges.map((range) => (
-                        <option key={range} value={range}>{range}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/* Preferred Countries */}
-                  <div>
-                    <label className="block text-sm font-semibold text-secondary-700 mb-3">
-                      Countries of Interest (select all that apply)
-                    </label>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                      {countries.map((country) => (
-                        <label key={country} className="flex items-center space-x-2 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={formData.preferredCountries.includes(country as never)}
-                            onChange={() => handleCountryChange(country)}
-                            className="w-4 h-4 text-primary-600 border-secondary-300 rounded focus:ring-primary-500"
-                          />
-                          <span className="text-sm text-secondary-700">{country}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-secondary-700 mb-2">
-                      How did you hear about us?
-                    </label>
-                    <select
-                      name="howDidYouHear"
-                      value={formData.howDidYouHear}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
-                    >
-                      <option value="">Select an option</option>
-                      <option value="google">Google Search</option>
-                      <option value="social-media">Social Media</option>
-                      <option value="referral">Referral</option>
-                      <option value="advertisement">Advertisement</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-
-                  {/* Message */}
-                  <div>
-                    <label className="block text-sm font-semibold text-secondary-700 mb-2">
-                      Tell us about your goals and timeline
-                    </label>
-                    <textarea
-                      name="message"
-                      rows={4}
-                      value={formData.message}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all resize-none"
-                      placeholder="Describe your investment goals, preferred timeline, and any specific questions you have..."
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={sending}
-                    className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-secondary-400 disabled:cursor-not-allowed text-white py-4 px-6 rounded-lg font-semibold text-lg transition-colors duration-200 flex items-center justify-center space-x-2"
-                  >
-                    <Send className={`w-5 h-5 ${sending ? 'animate-pulse' : ''}`} />
-                    <span>{sending ? 'Sending...' : 'Book My Free Consultation'}</span>
-                  </button>
-
-                  <p className="text-sm text-secondary-500 text-center leading-relaxed">
-                    By submitting this form, you agree to our privacy policy and consent to being contacted 
-                    by our immigration experts. We respect your privacy and never share your information.
-                  </p>
-                </form>
-              </div>
-            </div>
-
-            {/* Contact Info Sidebar */}
-            <div className="lg:col-span-1">
-              <div className="bg-secondary-900 text-white rounded-2xl p-8 h-fit sticky top-8">
-                <h3 className="text-2xl font-bold mb-8">Contact Information</h3>
-                
-                <div className="space-y-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <MapPin className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">Dubai Office</h4>
-                      <p className="text-secondary-300 leading-relaxed">
-                        Premium Business District<br />
-                        Dubai, United Arab Emirates
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Phone className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">Phone</h4>
-                      <a href="tel:+971-xxx-xxxx" className="text-secondary-300 hover:text-primary-400 transition-colors">
-                        +971-XXX-XXXX
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">Email</h4>
-                      <a href="mailto:info@globetrotmigration.com" className="text-secondary-300 hover:text-primary-400 transition-colors">
-                        info@globetrotmigration.com
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Clock className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">Business Hours</h4>
-                      <div className="text-secondary-300 text-sm leading-relaxed">
-                        <p>Monday - Friday: 9:00 AM - 6:00 PM GST</p>
-                        <p>Saturday: 10:00 AM - 4:00 PM GST</p>
-                        <p>Sunday: Closed</p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
 
-                <div className="mt-8 pt-8 border-t border-secondary-700">
-                  <h4 className="font-semibold mb-4">Emergency Contact</h4>
-                  <p className="text-secondary-300 text-sm leading-relaxed mb-4">
-                    For urgent matters outside business hours, our emergency line is available 24/7.
-                  </p>
-                  <a 
-                    href="tel:+971-xxx-xxxx" 
-                    className="text-gold-400 hover:text-gold-300 font-semibold transition-colors"
-                  >
-                    Emergency: +971-XXX-XXXX
-                  </a>
+                <div className="mb-6">
+                  <label className="block text-sm font-semibold text-[#0A1628] mb-2">
+                    Current Country of Residence *
+                  </label>
+                  <input
+                    type="text"
+                    name="country"
+                    value={formData.country}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors"
+                  />
                 </div>
-              </div>
 
-              {/* Quick Stats */}
-              <div className="mt-8 bg-primary-50 rounded-2xl p-6">
-                <h4 className="font-bold text-secondary-900 mb-4">Why Choose Us?</h4>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span className="text-secondary-700">98% Success Rate</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span className="text-secondary-700">15+ Years Experience</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span className="text-secondary-700">1,200+ Successful Cases</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span className="text-secondary-700">Licensed Professionals</span>
-                  </div>
+                <div className="mb-6">
+                  <label className="block text-sm font-semibold text-[#0A1628] mb-2">
+                    Where would you like to go?
+                  </label>
+                  <input
+                    type="text"
+                    name="preferredCountries"
+                    value={formData.preferredCountries}
+                    onChange={handleChange}
+                    placeholder="e.g. Portugal, Canada, Australia..."
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors"
+                  />
                 </div>
-              </div>
-            </div>
+
+                <div className="mb-6">
+                  <label className="block text-sm font-semibold text-[#0A1628] mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows={4}
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C9A84C] transition-colors resize-none"
+                    placeholder="Tell us about your immigration goals..."
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={sending}
+                  className="w-full px-8 py-4 bg-gradient-to-r from-[#C9A84C] to-[#D4B85A] text-[#0A1628] font-bold rounded-full hover:shadow-xl hover:shadow-[#C9A84C]/20 transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  {sending ? 'Sending...' : 'Book Consultation'}
+                  <Send className="w-5 h-5" />
+                </button>
+              </form>
+            </motion.div>
           </div>
         </div>
       </section>

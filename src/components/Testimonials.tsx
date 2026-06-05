@@ -62,49 +62,52 @@ const Testimonials = () => {
     return Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`w-4 h-4 ${i < rating ? 'text-gold-400 fill-gold-400' : 'text-secondary-300'}`}
+        className={`w-5 h-5 ${i < rating ? 'text-accent-500 fill-accent-500' : 'text-neutral-300'}`}
       />
     ));
   };
 
   return (
-    <section className="py-20 bg-secondary-50">
+    <section className="section-spacing bg-white">
       <div className="container-max section-padding">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-secondary-900 mb-4">
+          <h2 className="text-4xl lg:text-5xl font-bold text-neutral-900 mb-4">
             What Our Clients Say
           </h2>
-          <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
+          <p className="text-xl text-neutral-600 max-w-2xl mx-auto leading-relaxed">
             Real stories from families who have successfully secured their global mobility goals with our guidance
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial) => (
-            <div key={testimonial.id} className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-200">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex space-x-1">
+            <div key={testimonial.id} className="card p-8 flex flex-col h-full">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex gap-1">
                   {renderStars(testimonial.rating)}
                 </div>
-                <Quote className="w-6 h-6 text-primary-600" />
+                <Quote className="w-8 h-8 text-primary-200 flex-shrink-0" />
               </div>
               
-              <p className="text-secondary-600 mb-6 leading-relaxed">
+              <p className="text-neutral-600 text-base mb-6 leading-relaxed flex-grow">
                 "{testimonial.content}"
               </p>
               
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center gap-4 pt-4 border-t border-neutral-100">
                 <img 
                   src={testimonial.image} 
                   alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover"
+                  className="w-14 h-14 rounded-full object-cover ring-2 ring-neutral-100"
                 />
                 <div>
-                  <h4 className="font-semibold text-secondary-900">
+                  <h4 className="font-bold text-neutral-900 mb-1">
                     {testimonial.name}
                   </h4>
-                  <p className="text-sm text-secondary-500">
-                    {testimonial.country} • {testimonial.program}
+                  <p className="text-sm text-neutral-500">
+                    {testimonial.country}
+                  </p>
+                  <p className="text-xs text-primary-600 font-medium mt-0.5">
+                    {testimonial.program}
                   </p>
                 </div>
               </div>
@@ -112,12 +115,12 @@ const Testimonials = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <div className="bg-primary-100 rounded-lg p-6 max-w-2xl mx-auto">
-            <p className="text-primary-800 font-semibold mb-2">
+        <div className="text-center mt-16">
+          <div className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl p-8 max-w-3xl mx-auto border border-primary-100">
+            <p className="text-primary-900 font-bold text-lg mb-2">
               Ready to join our success stories?
             </p>
-            <p className="text-primary-700">
+            <p className="text-neutral-700 text-base leading-relaxed">
               Over 1,200 families have trusted us with their global mobility journey. 
               Your success story could be next.
             </p>
